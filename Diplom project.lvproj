@@ -43,7 +43,9 @@
 		<Item Name="Libraries" Type="Folder">
 			<Item Name="KEYSIGHT" Type="Folder"/>
 			<Item Name="Agilent" Type="Folder">
-				<Item Name="Agileng_set.vi" Type="VI" URL="../controls/Agileng_set.vi"/>
+				<Item Name="Agilent_value_set.vi" Type="VI" URL="../controls/Agilent_value_set.vi"/>
+				<Item Name="Agilent_Init.vi" Type="VI" URL="../controls/Agilent_Init.vi"/>
+				<Item Name="Agilent_read.vi" Type="VI" URL="../controls/Agilent_read.vi"/>
 			</Item>
 		</Item>
 		<Item Name="Main.vi" Type="VI" URL="../Main.vi"/>
@@ -80,6 +82,21 @@
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
 				<Item Name="BuildHelpPath.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/BuildHelpPath.vi"/>
 				<Item Name="GetHelpDir.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetHelpDir.vi"/>
+			</Item>
+			<Item Name="instr.lib" Type="Folder">
+				<Item Name="N5700 Write to Instrument.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Write to Instrument.vi"/>
+				<Item Name="N5700 Error Query.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Error Query.vi"/>
+				<Item Name="N5700 Wait.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Wait.vi"/>
+				<Item Name="N5700 Config Current Limit.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Config Current Limit.vi"/>
+				<Item Name="N5700 Config Output On-Off.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Config Output On-Off.vi"/>
+				<Item Name="N5700 Initialize.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Initialize.vi"/>
+				<Item Name="N5700 Reset.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Reset.vi"/>
+				<Item Name="N5700 Close.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Close.vi"/>
+				<Item Name="N5700 Config Voltage Protection.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Config Voltage Protection.vi"/>
+				<Item Name="N5700 Config Voltage Limit.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Config Voltage Limit.vi"/>
+				<Item Name="N5700 Meas Output Voltage.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Meas Output Voltage.vi"/>
+				<Item Name="N5700 Read Instrument Data.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Read Instrument Data.vi"/>
+				<Item Name="N5700 Meas Output Current.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Meas Output Current.vi"/>
 			</Item>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">

@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="Microsoft FrontPage 5.0" name=GENERATOR></HEAD>
+<BODY>Version A.04<BR>September 1, 2004<BR><BR>
+<H4>Table of Contents:</H4>
+<DIR>
+<DIR><PRE><A href="file:///C:/Documents%20and%20Settings/dch10/Desktop/ADN%20Work/Instrument%20Drivers/LabVIEW%20Drivers/Agilent%20N5700%20Readme--revised.htm#section_1">1. Overview</A>		
+<A href="file:///C:/Documents%20and%20Settings/dch10/Desktop/ADN%20Work/Instrument%20Drivers/LabVIEW%20Drivers/Agilent%20N5700%20Readme--revised.htm#section_2">2. Required Software</A>	
+<A href="file:///C:/Documents%20and%20Settings/dch10/Desktop/ADN%20Work/Instrument%20Drivers/LabVIEW%20Drivers/Agilent%20N5700%20Readme--revised.htm#section_3">3. Installation Instructions</A>
+<A href="file:///C:/Documents%20and%20Settings/dch10/Desktop/ADN%20Work/Instrument%20Drivers/LabVIEW%20Drivers/Agilent%20N5700%20Readme--revised.htm#section_4">4. Accessing the Driver in LabVIEW</A>
+<A href="file:///C:/Documents%20and%20Settings/dch10/Desktop/ADN%20Work/Instrument%20Drivers/LabVIEW%20Drivers/Agilent%20N5700%20Readme--revised.htm#section_5">5. Using the Instrument Driver</A>
+<A href="file:///C:/Documents%20and%20Settings/dch10/Desktop/ADN%20Work/Instrument%20Drivers/LabVIEW%20Drivers/Agilent%20N5700%20Readme--revised.htm#section_6">6. Custom Error Codes</A>
+<A href="file:///C:/Documents%20and%20Settings/dch10/Desktop/ADN%20Work/Instrument%20Drivers/LabVIEW%20Drivers/Agilent%20N5700%20Readme--revised.htm#section_7">7. Unsupported Features</A>
+<A href="file:///C:/Documents%20and%20Settings/dch10/Desktop/ADN%20Work/Instrument%20Drivers/LabVIEW%20Drivers/Agilent%20N5700%20Readme--revised.htm#section_8">8. Known Issues</A>
+<A href="file:///C:/Documents%20and%20Settings/dch10/Desktop/ADN%20Work/Instrument%20Drivers/LabVIEW%20Drivers/Agilent%20N5700%20Readme--revised.htm#section_9">9. Customer Support</A>
+<A href="file:///C:/Documents%20and%20Settings/dch10/Desktop/ADN%20Work/Instrument%20Drivers/LabVIEW%20Drivers/Agilent%20N5700%20Readme--revised.htm#section_10">10. Revision History</A></PRE></DIR></DIR>
+<H4><A name=section_1></A>1. Overview</H4>
+<PRE>Instrument Driver Technology:	Plug and Play
+Supported Language(s):		LabVIEW  6.1
+Supported Regional Settings:	English and Universal desktops
+				(period or comma separator for number decimal point)
+
+Supported Models:		Agilent Technologies
+				N5700 Series DC Power Supplies
+Models Tested:			N5741A thru N5772A
+Interfaces:			IEEE-488, LAN, USB 2.0
+Firmware Revision Tested:	A.00.02
+
+Certified:			No
+NI Supported:			No
+Source Code Available:		Yes
+
+Driver Revision:		REV_A04, 07/2004, LV_6.1
+Original Release Date:		September 2004
+Current Revision Date:		July 2004</PRE>
+<H4><A name=section_2></A>2. Required Software</H4><PRE>Some software components need to be installed before using this instrument driver. 
+The minimum versions of these components are listed below, and can be downloaded from 
+the download Web site.
+
+VISA 2.6  for IEEE-488 and LAN support
+VISA 3.0  for USB support
+
+Note: VISA has additional software requirements. For example, if using the IEEE-488 port, 
+NI-VISA requires that NI-488.2 be installed on your system. Check with VISA help for 
+additional support software and hardware requirements.<BR><BR>
+LabVIEW requires NI's USB driver for USB instruments, Agilent I/O library should
+not be installed when USB support is required.</PRE>
+<H4><A name=section_3></A>3. Installation Instructions</H4><PRE>Obtain a copy of the driver software.  It is packaged 
+in a self-extracting file called:  driver_labview_n5700_A_04.exe 
+
+A)  Use Windows<font face="Arial">®</font> Explorer and navigate to folder:
+	...\Program Files \National Instruments \LabVIEW...\instr.lib
+
+B)  Create a new folder:   agt_N5700
+
+C)  Double-click the file you downloaded and extract the driver files into 
+    the "agt_N5700" folder
+
+D)  You will now have a "...\instr.lib\agt_N5700\" folder containing:
+	"agt_N5700.llb"
+	five MNU menu files
+	"Agilent N5700 Readme.htm" (this file) 
+
+The menu files and VI library (LLB) make up an instrument driver. 
+The menu files allow you to view the instrument driver VIs from the Functions palette.
+The VI library contains the instrument driver VIs.    </PRE>
+<H4><A name=section_4></A>4. Accessing the Driver in LabVIEW</H4><PRE>There is normally no need to view the library file because the driver functions 
+may be picked from a palette menu.
+
+A)  Right-click on a blank place on the VI diagram
+    See the "Functions" palette open.  Navigate:
+
+	Functions -&gt;  Instrument I/O -&gt;  Instrument Drivers -&gt;  Agilent N5700 DC-Power
+
+B)  Alternately,  click diagram's menu bar:  Window -&gt;  "Show Functions Palette" and
+    navigate the above menus    </PRE>
+<H4><A name=section_5></A>5. Using the Instrument Driver</H4><PRE>LabVIEW:
+To verify communication with your instrument and test a typical programmatic 
+instrument operation, you should first open the Getting Started or Example VIs 
+the instrument driver. Look over each of the controls and set them appropriately. 
+Generally, with the exception of the address field, the defaults for most controls 
+will be sufficient for your first run. You will need to set the instrument resource 
+name appropriately. After running the VI, check to see that reasonable data was 
+returned and an error was not reported in the error cluster.
+
+After you have verified basic communication with your instrument, you might want to 
+customize instrument control for your needs. If your application needs are similar to 
+the Getting Started or Example VI, the simplest means of creating a customized VI is to 
+save a copy of the Getting Started or Example VI by selecting "Save As" from the File menu.
+You can then modify this example to meet your specific needs.
+
+For more details, reference the LabVIEW Help under Help » VI, Function, &amp; How-To Help.&nbsp;</PRE>
+<H4><A name=section_6></A>6. Custom Error Codes</H4><PRE>Every driver checks for errors and any found are returned in the "error out" cluster.
+There are three sources of errors and only the highest priority error is returned:
+
+			<B>ERROR TYPES</PRE></B>
+<TABLE cellSpacing=1 cellPadding=7 width=678 border=1>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width="15%"><PRE><B>Priority</PRE></B></TD>
+    <TD vAlign=top width="22%"><B><PRE>Type</PRE></B></TD>
+    <TD vAlign=top width="63%"><B><PRE>Description</PRE></B></TD></TR>
+  <TR>
+    <TD vAlign=top width="15%"><PRE>Highest</PRE></TD>
+    <TD vAlign=top width="22%"><PRE>VISA Error</PRE></TD>
+    <TD vAlign=top width="63%"><PRE>Returned by VISA functions such as Write or Read
+Examples: No device at the address detected.
+          After query sent, no response received</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="15%">
+      <P>&nbsp;</P></TD>
+    <TD vAlign=top width="22%"><PRE>Device Error</PRE></TD>
+    <TD vAlign=top width="63%"><PRE>Returned by the instrument's "SYSTEM:ERROR" queue
+Examples: see "CUSTOM DEVICE ERRORS" table below</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="15%"><PRE>Lowest</PRE></TD>
+    <TD vAlign=top width="22%"><PRE>Response Error</PRE></TD>
+    <TD vAlign=top width="63%"><PRE>Driver received response but it is invalid
+Examples: see "CUSTOM RESPONSE ERRORS" table below</PRE></TD></TR></TBODY></TABLE><PRE>Device errors are ones reported from a "SYSTEM:ERR?" query. This is done automatically
+by most drivers.  If an error is returned, it is in the SCPI error format:
+		&lt;number -500 to +500&gt; &lt;comma&gt; &lt;message string in quotes&gt;
+Refer to the user manual appendix "Error Messages" for a complete list of possible errors 
+
+The VISA standard allows custom error codes in the range:
+		-1073999873 to -1074001919  ( BFFC0801 to BFFC0FFF hex)
+
+The SCPI error number is converted to a VISA error number using this formula:
+		&lt;absolute value of SCPI error number&gt; + &lt;BFFC0900 hex&gt;
+See "N5700 Error Query.vi" for details.  All returns are errors; there are no warnings.
+
+			<B>EXAMPLES:  CUSTOM DEVICE ERRORS</PRE></B>
+<TABLE cellSpacing=1 cellPadding=7 width=638 border=1>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width="18%"><PRE><B>Decimal Code</PRE></B></TD>
+    <TD vAlign=top width="17%"><B><PRE>Hex Code</PRE></B></TD>
+    <TD vAlign=top width="65%"><B><PRE>Meaning</PRE></B></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074001555</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC096D</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>-109,"Missing parameter"
+value missing from command that sets value</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074001551</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC0971</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>-113,"Undefined header"
+unrecognized command or query</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074001533</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC0983</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>-131,"Invalid suffix"
+ex: text letters attached to end of numeric value</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074001442</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC09DE</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>-222,"Data out of range"
+attempt to program settings outside of range
+applies to volt limit, current limit , OVP and UVL</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074001440</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC09E0</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>-224,"Illegal parameter value"
+ex: sending text letters where numeric expected</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074001254</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC0A9A</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>-410,"Query INTERRUPTED"
+query sent but driver did not read response
+before sending another query</PRE></TD></TR></TBODY></TABLE><PRE>			<B>CUSTOM RESPONSE ERRORS</PRE></B>
+<TABLE cellSpacing=1 cellPadding=7 width=636 border=1>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width="18%"><PRE><B>Decimal Code</PRE></B></TD>
+    <TD vAlign=top width="17%"><B><PRE>Hex Code</PRE></B></TD>
+    <TD vAlign=top width="65%"><B><PRE>Meaning</PRE></B></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074003951</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC0011</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>No response from "ID Query" in "Initialize.vi".
+May be an incorrect address setting or the
+instrument is not communicating</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074001904</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC0810</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>Could not parse identity fields to find revisions</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074001902</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC0812</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>Could not parse identity fields to get the
+model number ("N57xx")</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074001900</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC0814</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>Attempt to send query to "Write to Instrument".
+Cannot have "?" in command string</PRE></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><PRE>-1074001898</PRE></TD>
+    <TD vAlign=top width="17%"><PRE>BFFC0816</PRE></TD>
+    <TD vAlign=top width="65%"><PRE>Attempt to send command to "Read Instrument Data".
+Must have "?" in query string</PRE></TD></TR></TBODY></TABLE>
+<H4><A name=section_7></A>7. Unsupported Features</H4><PRE>The following N5700 capabilities are not supported by this driver:
+- SRQ interrupts 
+- Event and Enable registers
+- Triggered events
+- Self-Test
+- Calibration commands</PRE>
+<H4><A name=section_8></A>8. Known Issues</H4><PRE>There are currently no known issues with this instrument driver.</PRE>
+<H4><A name=section_9></A>9. Customer Support</H4>
+<p>For more information about this driver and other instrument drivers and 
+software available from Agilent Technologies visit:<br>
+<a target="_blank" href="http://www.agilent.com/find/ADN">
+http://www.agilent.com/find/ADN</a><br>
+<br>
+A list of contact information is available from:&nbsp;
+<a target="_blank" href="http://www.agilent.com/find/contacts00">
+http://www.agilent.com/find/contacts00</a> (two zeros at the end)<br>
+&nbsp;</p>
+<H4><A name=section_10></A>10. Revision History</H4><PRE>REV_A04, 07/2004, LV_6.1 Original Release
+
+</PRE><I>Windows is a U.S. registered trademarks of Microsoft Corporation.</I>
+<P><I>© Copyright 2005 Agilent Technologies, Inc.</I>&nbsp; </P></BODY></HTML>
