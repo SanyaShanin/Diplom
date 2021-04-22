@@ -41,12 +41,19 @@
 			<Item Name="State.ctl" Type="VI" URL="../controls/State.ctl"/>
 		</Item>
 		<Item Name="Libraries" Type="Folder">
-			<Item Name="KEYSIGHT" Type="Folder"/>
+			<Item Name="KEYSIGHT" Type="Folder">
+				<Item Name="VNA_init.vi" Type="VI" URL="../controls/VNA_init.vi"/>
+				<Item Name="VNA_Set_Selected_Measurement.vi" Type="VI" URL="../controls/VNA_Set_Selected_Measurement.vi"/>
+				<Item Name="VNA_Trigger.vi" Type="VI" URL="../controls/VNA_Trigger.vi"/>
+				<Item Name="VNA_Save.vi" Type="VI" URL="../controls/VNA_Save.vi"/>
+			</Item>
 			<Item Name="Agilent" Type="Folder">
 				<Item Name="Agilent_value_set.vi" Type="VI" URL="../controls/Agilent_value_set.vi"/>
 				<Item Name="Agilent_Init.vi" Type="VI" URL="../controls/Agilent_Init.vi"/>
 				<Item Name="Agilent_read.vi" Type="VI" URL="../controls/Agilent_read.vi"/>
+				<Item Name="Agilent_status.vi" Type="VI" URL="../controls/Agilent_status.vi"/>
 			</Item>
+			<Item Name="Instrument_check.vi" Type="VI" URL="../controls/Instrument_check.vi"/>
 		</Item>
 		<Item Name="Main.vi" Type="VI" URL="../Main.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
@@ -82,6 +89,7 @@
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
 				<Item Name="BuildHelpPath.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/BuildHelpPath.vi"/>
 				<Item Name="GetHelpDir.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetHelpDir.vi"/>
+				<Item Name="subTimeDelay.vi" Type="VI" URL="/&lt;vilib&gt;/express/express execution control/TimeDelayBlock.llb/subTimeDelay.vi"/>
 			</Item>
 			<Item Name="instr.lib" Type="Folder">
 				<Item Name="N5700 Write to Instrument.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Write to Instrument.vi"/>
