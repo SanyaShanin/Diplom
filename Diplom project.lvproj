@@ -46,6 +46,10 @@
 				<Item Name="VNA_Set_Selected_Measurement.vi" Type="VI" URL="../controls/VNA_Set_Selected_Measurement.vi"/>
 				<Item Name="VNA_Trigger.vi" Type="VI" URL="../controls/VNA_Trigger.vi"/>
 				<Item Name="VNA_Save.vi" Type="VI" URL="../controls/VNA_Save.vi"/>
+				<Item Name="VNA_Set_Freq.vi" Type="VI" URL="../controls/VNA_Set_Freq.vi"/>
+				<Item Name="VNA_Set_IF.vi" Type="VI" URL="../controls/VNA_Set_IF.vi"/>
+				<Item Name="VNA_Set_PowerLevel.vi" Type="VI" URL="../controls/VNA_Set_PowerLevel.vi"/>
+				<Item Name="VNA_Get_Trigger.vi" Type="VI" URL="../controls/VNA_Get_Trigger.vi"/>
 			</Item>
 			<Item Name="Agilent" Type="Folder">
 				<Item Name="Agilent_value_set.vi" Type="VI" URL="../controls/Agilent_value_set.vi"/>
@@ -89,7 +93,6 @@
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
 				<Item Name="BuildHelpPath.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/BuildHelpPath.vi"/>
 				<Item Name="GetHelpDir.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetHelpDir.vi"/>
-				<Item Name="subTimeDelay.vi" Type="VI" URL="/&lt;vilib&gt;/express/express execution control/TimeDelayBlock.llb/subTimeDelay.vi"/>
 			</Item>
 			<Item Name="instr.lib" Type="Folder">
 				<Item Name="N5700 Write to Instrument.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Write to Instrument.vi"/>
@@ -129,7 +132,7 @@
 				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
 				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/Main Application/data</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{E14DB2DD-E011-49B1-8A6D-0145D8676319}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{14AAC4C7-34B2-4A5B-9FE2-521EE78B2DBB}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Main.vi</Property>
