@@ -39,9 +39,10 @@
 		<Item Name="Type Definitions" Type="Folder">
 			<Item Name="Data.ctl" Type="VI" URL="../controls/Data.ctl"/>
 			<Item Name="State.ctl" Type="VI" URL="../controls/State.ctl"/>
+			<Item Name="DefType.ctl" Type="VI" URL="../controls/DefType.ctl"/>
 		</Item>
 		<Item Name="Libraries" Type="Folder">
-			<Item Name="KEYSIGHT" Type="Folder">
+			<Item Name="KEYSIGHT_VNA" Type="Folder">
 				<Item Name="VNA_init.vi" Type="VI" URL="../controls/VNA_init.vi"/>
 				<Item Name="VNA_Set_Selected_Measurement.vi" Type="VI" URL="../controls/VNA_Set_Selected_Measurement.vi"/>
 				<Item Name="VNA_Trigger.vi" Type="VI" URL="../controls/VNA_Trigger.vi"/>
@@ -50,6 +51,11 @@
 				<Item Name="VNA_Set_IF.vi" Type="VI" URL="../controls/VNA_Set_IF.vi"/>
 				<Item Name="VNA_Set_PowerLevel.vi" Type="VI" URL="../controls/VNA_Set_PowerLevel.vi"/>
 				<Item Name="VNA_Get_Trigger.vi" Type="VI" URL="../controls/VNA_Get_Trigger.vi"/>
+				<Item Name="VNA_Set_Trace_Number.vi" Type="VI" URL="../controls/VNA_Set_Trace_Number.vi"/>
+				<Item Name="VNA_Format_Set.vi" Type="VI" URL="../controls/VNA_Format_Set.vi"/>
+				<Item Name="VNA_WaitCommands.vi" Type="VI" URL="../controls/VNA_WaitCommands.vi"/>
+				<Item Name="VNA_Set_Trace_Def.vi" Type="VI" URL="../controls/VNA_Set_Trace_Def.vi"/>
+				<Item Name="VNA_ConfigureTraces.vi" Type="VI" URL="../controls/VNA_ConfigureTraces.vi"/>
 			</Item>
 			<Item Name="Agilent" Type="Folder">
 				<Item Name="Agilent_value_set.vi" Type="VI" URL="../controls/Agilent_value_set.vi"/>
@@ -109,6 +115,7 @@
 				<Item Name="N5700 Read Instrument Data.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Read Instrument Data.vi"/>
 				<Item Name="N5700 Meas Output Current.vi" Type="VI" URL="/&lt;instrlib&gt;/agt_N5700/agt_N5700.llb/N5700 Meas Output Current.vi"/>
 			</Item>
+			<Item Name="agena Write.vi" Type="VI" URL="../samples/agena/_agena.llb/agena Write.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="Main Application" Type="EXE">
