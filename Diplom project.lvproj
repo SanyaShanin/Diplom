@@ -56,6 +56,7 @@
 				<Item Name="VNA_WaitCommands.vi" Type="VI" URL="../controls/VNA_WaitCommands.vi"/>
 				<Item Name="VNA_Set_Trace_Def.vi" Type="VI" URL="../controls/VNA_Set_Trace_Def.vi"/>
 				<Item Name="VNA_ConfigureTraces.vi" Type="VI" URL="../controls/VNA_ConfigureTraces.vi"/>
+				<Item Name="VNA_Data_Read.vi" Type="VI" URL="../controls/VNA_Data_Read.vi"/>
 			</Item>
 			<Item Name="Agilent" Type="Folder">
 				<Item Name="Agilent_value_set.vi" Type="VI" URL="../controls/Agilent_value_set.vi"/>
