@@ -9,12 +9,20 @@ using System.Threading.Tasks;
 
 namespace SpinWaveTool
 {
-    public class TelnetConnection : IDisposable
+    public interface IInstrument : IDisposable
+    {
+        public bool IsOpen { get; }
+        public void Write(string str, Action<string> callback = null);
+        public void WriteAsync(string str, Action<string> callback = null);
+        public void Open(string hostname);
+        public Task OpenAsync(string hostname);
+        public void Close();
+    }
+    public class TelnetConnection : IInstrument
     {
         TcpClient m_Client;
         NetworkStream m_Stream;
         bool m_IsOpen = false;
-        bool hislip = true;
         string m_Hostname;
         int m_ReadTimeout = 1000; // ms
         public int port = 5025;
@@ -44,14 +52,14 @@ namespace SpinWaveTool
             get { return m_ReadTimeout; }
         }
 
-        public async void Write(string str, Action<string> callback = null)
+        public void Write(string str, Action<string> callback = null)
         {
 
             //FieldFox Programming Guide 6
             CheckOpen();
             byte[] bytes = System.Text.ASCIIEncoding.ASCII.GetBytes(str);
             m_Stream.Write(bytes);
-            m_Stream.Flush();
+            WriteTerminator();
             if (str.IndexOf('?') >= 0 && callback != null)
                 callback(Read());
         }
@@ -144,7 +152,10 @@ namespace SpinWaveTool
                 Close();
             m_Hostname = hostname;
             
-            m_Client = new TcpClient(hostname, port);
+            m_Client = new TcpClient();
+            m_Client.ReceiveTimeout = 1000;
+            m_Client.SendTimeout = 1000;
+            m_Client.Connect(hostname, port);
             m_Stream = m_Client.GetStream();
             m_Stream.ReadTimeout = ReadTimeout;
             m_IsOpen = true;
@@ -159,7 +170,6 @@ namespace SpinWaveTool
         public void Close()
         {
             if (!m_IsOpen)
-                //FieldFox Programming Guide 7
                 return;
 
             m_Stream.Close();
@@ -175,7 +185,7 @@ namespace SpinWaveTool
         }
     }
 
-    public class Hislip : IDisposable
+    public class Hislip : IInstrument
     {
         public enum MessageType
         {
@@ -281,11 +291,13 @@ namespace SpinWaveTool
             Print("Attemp to connect async and sync connections on a " + hostname);
 
             Sync = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            Sync.ReceiveTimeout = 2000;
             Sync.Connect(hostname, port);
             Print("Sync client connected");
             ConnectSync();
 
             Async = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            Async.ReceiveTimeout = 2000;
             Async.Connect(hostname, port);
             Print("Async client connected");
             ConnectAsync();
