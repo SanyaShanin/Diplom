@@ -26,7 +26,6 @@ namespace SpinWaveTool
             StatusUpdater();
         }
 
-
         private void address_power_supply_TextChanged(object sender, EventArgs e)
         {
             
@@ -66,15 +65,31 @@ namespace SpinWaveTool
         {
             while (true)
             {
-                await Task.Run(() => Thread.Sleep(2000));
+                await Task.Run(() => Thread.Sleep(500));
+                var status = await PowerSupplyUpdate();
+                powerSupplyCurrent.Text = "Current: " + status[0] + " (A)";
+                powerSupplyVoltage.Text = "Voltage: " + status[1] + " (V)";
+                powerSupplyOutput.Text = "Output: " + status[2];
+            }
+        }
+        private async Task<List<string>> PowerSupplyUpdate()
+        {
+            List<string> output = new List<string>();
+            await Task.Run(() => {
                 powerSupplyStatus.Text = measurement.powerSupply.IsOpen ? "Ready" : "Failed";
                 if (measurement.powerSupply.IsOpen)
                 {
-                    powerSupplyCurrent.Text = "Current: " + measurement.powerSupply.CurrentGet().ToString() + ", A";
-                    powerSupplyVoltage.Text = "Voltage: " + measurement.powerSupply.VoltageGet().ToString() + ", V";
-                    powerSupplyOutput .Text = "Output: "  + (measurement.powerSupply.OutputGet() ? "ON" : "OFF");
+                    output.Add(measurement.powerSupply.CurrentGet().ToString());
+                    output.Add(measurement.powerSupply.VoltageGet().ToString());
+                    output.Add(measurement.powerSupply.OutputGet() ? "ON" : "OFF");
+                } else
+                {
+                    output.Add("0");
+                    output.Add("0");
+                    output.Add("OFF");
                 }
-            }
+            });
+            return output;
         }
         private async void Start(object sender, EventArgs e)
         {
@@ -82,19 +97,17 @@ namespace SpinWaveTool
                 return;
 
             await measurement.Start();
-            OnProcessStart();
+            ProcessHandler();
         }
         private async void End(object sender, EventArgs e)
         {
             if (measurement.state == Measurement.State.Disable || measurement.state == Measurement.State.Ending)
                 return;
 
-            await measurement.Stop();
-            OnProcessEnd();
+            await measurement.End();
         }
         private void OnProcessStart()
         {
-            ProcessHandler();
             button_start.Enabled = false;
             for(var i = 0; i < tabControl1.TabCount - 1; i++)
             {
@@ -118,9 +131,23 @@ namespace SpinWaveTool
         }
         private async void ProcessHandler()
         {
+            OnProcessStart();
             while(measurement.state != Measurement.State.Disable)
             {
                 await Task.Run(() => Thread.Sleep(200));
+                labelState.Text = "State: " + measurement.state.ToString();
+                labelProcessState.Text = "Working With: " + measurement.processState.ToString();
+            }
+            OnProcessEnd();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (measurement.vna.IsOpen)
+            {
+                var start = DateTime.Now;
+                System.IO.File.WriteAllText("testfile.txt", ">" + measurement.vna.DataFlow("C:\\NA_Measurements\\Temp\\test.s2p") + "<");
+                MessageBox.Show((DateTime.Now - start).ToString());
             }
         }
     }

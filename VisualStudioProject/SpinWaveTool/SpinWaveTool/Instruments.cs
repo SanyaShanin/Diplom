@@ -263,7 +263,12 @@ namespace SpinWaveTool
         }
         public string DataFlow(string filename)
         {
-            return WriteRead(string.Format(":MMEM:TRAN? '{0}'", filename));
+            var answer = WriteRead(string.Format(":MMEM:TRAN? '{0}'", filename)).Remove(0, 1);
+            while("0123456789".Contains(answer[0]))
+            {
+                answer = answer.Remove(0, 1);
+            }
+            return answer;
         }
     }
     public class PowerSupply : InstrumentInterface
@@ -326,7 +331,7 @@ namespace SpinWaveTool
         }
         public bool OutputGet()
         {
-            return WriteRead("VOLT?") == "1";
+            return WriteRead("OUTP?") == "1";
         }
         public void OutputSet(bool status)
         {

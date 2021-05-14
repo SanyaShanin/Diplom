@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -252,7 +253,6 @@ namespace SpinWaveTool
         bool busy = false;
         bool m_IsOpen = false;
         string m_Hostname;
-        int m_ReadTimeout = 1000; // ms
         public int port = 4880;
         public int version = 0x0100;
         public int vendor = 0x5253;
@@ -303,9 +303,16 @@ namespace SpinWaveTool
             while (busy) { }
             busy = true;
             Write(false, Messages.DataEnd(message + "\n", message_id));
-            if (message[message.Length - 1] == '?' && callback != null)
+            if (callback != null)
             {
-                var answer = ReadMessage(Sync).message;
+                var answer = "";
+                var answer_message = ReadMessage(Sync);
+                answer += answer_message.message;
+                while (answer_message.type == MessageType.Data)
+                {
+                    answer_message = ReadMessage(Sync);
+                    answer += answer_message.message;
+                }
                 callback(answer.Remove(answer.Length - 1));
                 Console.WriteLine(answer);
             }
@@ -361,7 +368,7 @@ namespace SpinWaveTool
             var answer = ReadMessage(Async);
             var vendor = answer.parameter;
             Print("Async init success");
-            /*Messages.AsyncMaximumMessageSize(0x100000).Send(Async);
+            /*Messages.AsyncMaximumMessageSize(1024 * 1024 * 10).Send(Async);
             answer = ReadMessage(Async);
             Print("maximum size: " + BitConverter.ToUInt64(answer.data));*/
         }
@@ -382,7 +389,7 @@ namespace SpinWaveTool
         }
         public Message ReadMessage(Socket socket)
         {
-            var buffer = new byte[1024 * 5];
+            var buffer = new byte[16];
             socket.Receive(buffer);
             var chars = ReadBytes(buffer, 0, 2);
             var prologue = ASCIIEncoding.ASCII.GetString(chars); // 2
@@ -395,12 +402,12 @@ namespace SpinWaveTool
             {
                 length = (length << 8) + (long)ReadByte(buffer, 8 + i);
             }
-            if (length > 0xffff)
+            if (length > 0xfffff)
                 length = 0;
             var data = new byte[length];
-            for (var i = 0; i < length; i++)
+            if (length > 0)
             {
-                data[i] = (byte)ReadByte(buffer, 16 + i);
+                socket.Receive(data);
             }
             return new Message()
                 .SetCode((byte)code)

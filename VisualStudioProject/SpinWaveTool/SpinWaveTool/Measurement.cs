@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Forms;
+using System.Threading;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +21,16 @@ namespace SpinWaveTool
             Processing,
             Ending
         }
+        public enum ProcessState
+        {
+            Nothing,
+            PowerSupply,
+            VNA
+        }
         public PowerSupply powerSupply = new PowerSupply();
         public VNA vna = new VNA();
         public State state = State.Disable;
+        public ProcessState processState = ProcessState.PowerSupply;
         public Data data = new Data();
         public string addressPowerSupply;
         public string addressVNA;
@@ -85,12 +94,54 @@ namespace SpinWaveTool
                 vna.ConfigMeasurements(data.parameters, data.formats);
             });
 
-            state = State.Starting;
+            state = State.Processing;
+            Process();
         }
-        
+        private async void Process()
+        {
+            int stepCount = powerSupply.IsOpen ? data.field_points : 1;
+            for(var i = 0; i < stepCount; i++)
+            {
+                double currentField = powerSupply.IsOpen ? data.field_start + data.field_step * i : 0;
+
+                if (state != State.Processing) return;
+                
+                if (powerSupply.IsOpen)
+                {
+                    processState = ProcessState.PowerSupply;
+                    await Task.Run(() => powerSupply.SafeCurrentSet(currentField, data.reloads, data.reload_delay));
+                }
+
+                if (state != State.Processing) return;
+
+                await Task.Run(() =>
+                {
+                    processState = ProcessState.VNA;
+                    vna.SetTrigger(VNA.Trigger.SING);
+
+                    while(vna.GetTrigger() != VNA.Trigger.HOLD)
+                    {
+                        if (state != State.Processing)
+                            return;
+                        Thread.Sleep(100);
+                    }
+
+                    if (state != State.Processing) return;
+
+                    vna.DataSave(data.filePath + currentField + data.fileExt);
+                });
+
+                if (state != State.Processing) return;
+            }
+
+            if (state != State.Processing) return;
+
+            await End();
+        }
         public async Task End()
         {
             state = State.Ending;
+            processState = ProcessState.Nothing;
 
             await Task.Run(() => {
                 if (powerSupply.IsOpen)
@@ -123,10 +174,10 @@ namespace SpinWaveTool
                 }
                 get
                 {
-                    return _field_end;
+                    return _field_start;
                 }
             }
-            double _field_start = 0;
+            double _field_start = 1;
             
             public double field_end
             {
@@ -140,7 +191,7 @@ namespace SpinWaveTool
                     return _field_end;
                 }
             }
-            double _field_end = 0;
+            double _field_end = 2;
             
             public int field_points
             {
@@ -153,7 +204,7 @@ namespace SpinWaveTool
                     return _field_points;
                 }
             }
-            int _field_points = 1;
+            int _field_points = 2;
             public double field_step
             {
                 set
@@ -164,7 +215,7 @@ namespace SpinWaveTool
                 }
                 get
                 {
-                    if (field_points == 0)
+                    if (field_points <= 1)
                         return 0;
                     return (field_end - field_start) / (field_points - 1);
                 }
@@ -222,7 +273,7 @@ namespace SpinWaveTool
                     return _freq_end;
                 }
             }
-            double _freq_end = 1;
+            double _freq_end = 1.5;
             public int freq_points
             {
                 set
@@ -234,7 +285,7 @@ namespace SpinWaveTool
                     return _freq_points;
                 }
             }
-            int _freq_points = 1000;
+            int _freq_points = 500;
             public double freq_step
             {
                 set
@@ -300,7 +351,7 @@ namespace SpinWaveTool
             }
             int _reload_delay = 750;
 
-            public string filePath = "C:\\NA_Measurements\\Temp\\test";
+            public string filePath = "C:\\NA_Measurements\\Temp\\test_new_";
             public string fileExt = ".s2p";
 
             public void SetParameter(int index, VNA.CalcParameter parameter, VNA.DataFormat format)

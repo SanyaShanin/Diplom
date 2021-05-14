@@ -39,31 +39,35 @@ namespace SpinWaveTool
             this.address_power_supply = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.power_supply = new System.Windows.Forms.TabPage();
+            this.bVoltageLimit = new System.Windows.Forms.TextBox();
+            this.bVoltageProtection = new System.Windows.Forms.TextBox();
+            this.bRestartsDelay = new System.Windows.Forms.TextBox();
+            this.bRestartCount = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.bFieldPoints = new System.Windows.Forms.TextBox();
+            this.bFieldStep = new System.Windows.Forms.TextBox();
+            this.bFieldEnd = new System.Windows.Forms.TextBox();
+            this.bFieldStart = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.vna = new System.Windows.Forms.TabPage();
             this.settings = new System.Windows.Forms.TabPage();
             this.process = new System.Windows.Forms.TabPage();
+            this.labelProcessState = new System.Windows.Forms.Label();
+            this.labelState = new System.Windows.Forms.Label();
+            this.button_stop = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.powerSupplyStatus = new System.Windows.Forms.Label();
             this.powerSupplyOutput = new System.Windows.Forms.Label();
             this.powerSupplyVoltage = new System.Windows.Forms.Label();
             this.powerSupplyCurrent = new System.Windows.Forms.Label();
             this.button_start = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.bFieldStart = new System.Windows.Forms.TextBox();
-            this.bFieldEnd = new System.Windows.Forms.TextBox();
-            this.bFieldStep = new System.Windows.Forms.TextBox();
-            this.bFieldPoints = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.bRestartCount = new System.Windows.Forms.TextBox();
-            this.bRestartsDelay = new System.Windows.Forms.TextBox();
-            this.bVoltageProtection = new System.Windows.Forms.TextBox();
-            this.bVoltageLimit = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.address.SuspendLayout();
             this.power_supply.SuspendLayout();
@@ -203,6 +207,134 @@ namespace SpinWaveTool
             this.power_supply.Text = "N6745A";
             this.power_supply.UseVisualStyleBackColor = true;
             // 
+            // bVoltageLimit
+            // 
+            this.bVoltageLimit.Location = new System.Drawing.Point(11, 302);
+            this.bVoltageLimit.Name = "bVoltageLimit";
+            this.bVoltageLimit.Size = new System.Drawing.Size(116, 23);
+            this.bVoltageLimit.TabIndex = 14;
+            // 
+            // bVoltageProtection
+            // 
+            this.bVoltageProtection.Location = new System.Drawing.Point(11, 258);
+            this.bVoltageProtection.Name = "bVoltageProtection";
+            this.bVoltageProtection.Size = new System.Drawing.Size(116, 23);
+            this.bVoltageProtection.TabIndex = 13;
+            // 
+            // bRestartsDelay
+            // 
+            this.bRestartsDelay.Location = new System.Drawing.Point(11, 192);
+            this.bRestartsDelay.Name = "bRestartsDelay";
+            this.bRestartsDelay.Size = new System.Drawing.Size(116, 23);
+            this.bRestartsDelay.TabIndex = 13;
+            // 
+            // bRestartCount
+            // 
+            this.bRestartCount.Location = new System.Drawing.Point(11, 148);
+            this.bRestartCount.Name = "bRestartCount";
+            this.bRestartCount.Size = new System.Drawing.Size(116, 23);
+            this.bRestartCount.TabIndex = 12;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(11, 284);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(94, 15);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "Voltage Limit (V)";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(11, 240);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(122, 15);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Voltage Protection (V)";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(11, 174);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(177, 15);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Power Supply Restarts Delay, ms";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 130);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(159, 15);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Power Supply Restarts Count";
+            // 
+            // bFieldPoints
+            // 
+            this.bFieldPoints.Location = new System.Drawing.Point(133, 74);
+            this.bFieldPoints.Name = "bFieldPoints";
+            this.bFieldPoints.Size = new System.Drawing.Size(115, 23);
+            this.bFieldPoints.TabIndex = 7;
+            // 
+            // bFieldStep
+            // 
+            this.bFieldStep.Location = new System.Drawing.Point(11, 74);
+            this.bFieldStep.Name = "bFieldStep";
+            this.bFieldStep.Size = new System.Drawing.Size(116, 23);
+            this.bFieldStep.TabIndex = 6;
+            // 
+            // bFieldEnd
+            // 
+            this.bFieldEnd.Location = new System.Drawing.Point(133, 30);
+            this.bFieldEnd.Name = "bFieldEnd";
+            this.bFieldEnd.Size = new System.Drawing.Size(115, 23);
+            this.bFieldEnd.TabIndex = 5;
+            // 
+            // bFieldStart
+            // 
+            this.bFieldStart.Location = new System.Drawing.Point(11, 30);
+            this.bFieldStart.Name = "bFieldStart";
+            this.bFieldStart.Size = new System.Drawing.Size(116, 23);
+            this.bFieldStart.TabIndex = 4;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(133, 56);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(115, 15);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Field Points Number";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(11, 56);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 15);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Field Step (A)";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(133, 14);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 15);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Field End (A)";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(78, 15);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Field Start (A)";
+            // 
             // vna
             // 
             this.vna.Location = new System.Drawing.Point(4, 24);
@@ -223,6 +355,9 @@ namespace SpinWaveTool
             // 
             // process
             // 
+            this.process.Controls.Add(this.labelProcessState);
+            this.process.Controls.Add(this.labelState);
+            this.process.Controls.Add(this.button_stop);
             this.process.Controls.Add(this.groupBox1);
             this.process.Controls.Add(this.button_start);
             this.process.Location = new System.Drawing.Point(4, 24);
@@ -232,13 +367,44 @@ namespace SpinWaveTool
             this.process.Text = "Process";
             this.process.UseVisualStyleBackColor = true;
             // 
+            // labelProcessState
+            // 
+            this.labelProcessState.AutoSize = true;
+            this.labelProcessState.Location = new System.Drawing.Point(4, 75);
+            this.labelProcessState.Name = "labelProcessState";
+            this.labelProcessState.Size = new System.Drawing.Size(79, 15);
+            this.labelProcessState.TabIndex = 5;
+            this.labelProcessState.Text = "Process State:";
+            // 
+            // labelState
+            // 
+            this.labelState.AutoSize = true;
+            this.labelState.Location = new System.Drawing.Point(4, 60);
+            this.labelState.Name = "labelState";
+            this.labelState.Size = new System.Drawing.Size(36, 15);
+            this.labelState.TabIndex = 4;
+            this.labelState.Text = "State:";
+            // 
+            // button_stop
+            // 
+            this.button_stop.Image = global::SpinWaveTool.Properties.Resources.stop;
+            this.button_stop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_stop.Location = new System.Drawing.Point(91, 3);
+            this.button_stop.Name = "button_stop";
+            this.button_stop.Size = new System.Drawing.Size(79, 54);
+            this.button_stop.TabIndex = 3;
+            this.button_stop.Text = "Stop";
+            this.button_stop.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_stop.UseVisualStyleBackColor = true;
+            this.button_stop.Click += new System.EventHandler(this.End);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.powerSupplyStatus);
             this.groupBox1.Controls.Add(this.powerSupplyOutput);
             this.groupBox1.Controls.Add(this.powerSupplyVoltage);
             this.groupBox1.Controls.Add(this.powerSupplyCurrent);
-            this.groupBox1.Location = new System.Drawing.Point(4, 45);
+            this.groupBox1.Location = new System.Drawing.Point(4, 116);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(251, 123);
             this.groupBox1.TabIndex = 2;
@@ -283,148 +449,33 @@ namespace SpinWaveTool
             // 
             // button_start
             // 
+            this.button_start.Image = global::SpinWaveTool.Properties.Resources.round_play_button;
             this.button_start.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button_start.Location = new System.Drawing.Point(3, 3);
             this.button_start.Name = "button_start";
-            this.button_start.Size = new System.Drawing.Size(92, 35);
+            this.button_start.Size = new System.Drawing.Size(82, 54);
             this.button_start.TabIndex = 1;
             this.button_start.Text = "Start";
+            this.button_start.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button_start.UseVisualStyleBackColor = true;
             this.button_start.Click += new System.EventHandler(this.Start);
             // 
-            // label3
+            // button2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 15);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Field Start (A)";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(133, 14);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 15);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Field End (A)";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 56);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 15);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Field Step (A)";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(133, 56);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(115, 15);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Field Points Number";
-            // 
-            // bFieldStart
-            // 
-            this.bFieldStart.Location = new System.Drawing.Point(11, 30);
-            this.bFieldStart.Name = "bFieldStart";
-            this.bFieldStart.Size = new System.Drawing.Size(116, 23);
-            this.bFieldStart.TabIndex = 4;
-            // 
-            // bFieldEnd
-            // 
-            this.bFieldEnd.Location = new System.Drawing.Point(133, 30);
-            this.bFieldEnd.Name = "bFieldEnd";
-            this.bFieldEnd.Size = new System.Drawing.Size(115, 23);
-            this.bFieldEnd.TabIndex = 5;
-            // 
-            // bFieldStep
-            // 
-            this.bFieldStep.Location = new System.Drawing.Point(11, 74);
-            this.bFieldStep.Name = "bFieldStep";
-            this.bFieldStep.Size = new System.Drawing.Size(116, 23);
-            this.bFieldStep.TabIndex = 6;
-            // 
-            // bFieldPoints
-            // 
-            this.bFieldPoints.Location = new System.Drawing.Point(133, 74);
-            this.bFieldPoints.Name = "bFieldPoints";
-            this.bFieldPoints.Size = new System.Drawing.Size(115, 23);
-            this.bFieldPoints.TabIndex = 7;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 130);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(159, 15);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Power Supply Restarts Count";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(11, 174);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(177, 15);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Power Supply Restarts Delay, ms";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(11, 240);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(122, 15);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Voltage Protection (V)";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(11, 284);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(94, 15);
-            this.label10.TabIndex = 11;
-            this.label10.Text = "Voltage Limit (V)";
-            // 
-            // bRestartCount
-            // 
-            this.bRestartCount.Location = new System.Drawing.Point(11, 148);
-            this.bRestartCount.Name = "bRestartCount";
-            this.bRestartCount.Size = new System.Drawing.Size(116, 23);
-            this.bRestartCount.TabIndex = 12;
-            // 
-            // bRestartsDelay
-            // 
-            this.bRestartsDelay.Location = new System.Drawing.Point(11, 192);
-            this.bRestartsDelay.Name = "bRestartsDelay";
-            this.bRestartsDelay.Size = new System.Drawing.Size(116, 23);
-            this.bRestartsDelay.TabIndex = 13;
-            // 
-            // bVoltageProtection
-            // 
-            this.bVoltageProtection.Location = new System.Drawing.Point(11, 258);
-            this.bVoltageProtection.Name = "bVoltageProtection";
-            this.bVoltageProtection.Size = new System.Drawing.Size(116, 23);
-            this.bVoltageProtection.TabIndex = 13;
-            // 
-            // bVoltageLimit
-            // 
-            this.bVoltageLimit.Location = new System.Drawing.Point(11, 302);
-            this.bVoltageLimit.Name = "bVoltageLimit";
-            this.bVoltageLimit.Size = new System.Drawing.Size(116, 23);
-            this.bVoltageLimit.TabIndex = 14;
+            this.button2.Location = new System.Drawing.Point(758, 189);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 639);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.tabControl1);
             this.Name = "MainForm";
             this.Text = "SpinWaveTool";
@@ -435,6 +486,7 @@ namespace SpinWaveTool
             this.power_supply.ResumeLayout(false);
             this.power_supply.PerformLayout();
             this.process.ResumeLayout(false);
+            this.process.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -478,6 +530,10 @@ namespace SpinWaveTool
         private System.Windows.Forms.TextBox bFieldStep;
         private System.Windows.Forms.TextBox bFieldEnd;
         private System.Windows.Forms.TextBox bFieldStart;
+        private System.Windows.Forms.Button button_stop;
+        private System.Windows.Forms.Label labelProcessState;
+        private System.Windows.Forms.Label labelState;
+        private System.Windows.Forms.Button button2;
     }
 }
 
