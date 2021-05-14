@@ -307,6 +307,10 @@ namespace SpinWaveTool
             {
                 var answer = "";
                 var answer_message = ReadMessage(Sync);
+                while (answer_message.parameter != message_id)
+                {
+                    answer_message = ReadMessage(Sync);
+                }
                 answer += answer_message.message;
                 while (answer_message.type == MessageType.Data)
                 {
@@ -317,6 +321,7 @@ namespace SpinWaveTool
                 Console.WriteLine(answer);
             }
             busy = false;
+            message_id++;
         }
         public async void WriteAsync(string message, Action<string> callback = null)
         {

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace SpinWaveTool
 {
@@ -24,6 +25,10 @@ namespace SpinWaveTool
             //MessageBox.Show(VNA.CalcParameter.S11.ToString());
             CheckInstruments();
             StatusUpdater();
+            UpdateData();
+
+            bFieldStart.LostFocus += (sender, args) => { MessageBox.Show("changed"); };
+            bFieldEnd.LostFocus += ChangeReact;
         }
 
         private void address_power_supply_TextChanged(object sender, EventArgs e)
@@ -45,6 +50,46 @@ namespace SpinWaveTool
             CheckInstruments();
         }
         
+        private int ParseInt(string input, int def)
+        {
+            int output = def;
+            try
+            {
+                output = int.Parse(input, CultureInfo.InvariantCulture);
+            }
+            catch { }
+            return output;
+        }
+        private double ParseDouble(string input, double def)
+        {
+            double output = def;
+            try
+            {
+                output = double.Parse(input, CultureInfo.InvariantCulture);
+            }
+            catch {}
+            return output;
+        }
+
+        bool sendEvent = true;
+        private void ChangeReact(object sender, EventArgs args)
+        {
+
+        }
+        private void UpdateData()
+        {
+            sendEvent = false;
+            bFieldEnd.Text          = measurement.data.field_end    .ToString(CultureInfo.InvariantCulture);
+            bFieldStart.Text        = measurement.data.field_start  .ToString(CultureInfo.InvariantCulture);
+            bFieldPoints.Text       = measurement.data.field_points .ToString(CultureInfo.InvariantCulture);
+            bFieldStep.Text         = measurement.data.field_step   .ToString(CultureInfo.InvariantCulture);
+            
+            bRestartCount.Text      = measurement.data.reloads      .ToString(CultureInfo.InvariantCulture);
+            bRestartsDelay.Text     = measurement.data.reload_delay .ToString(CultureInfo.InvariantCulture);
+            bVoltageLimit.Text      = measurement.data.ps_limit     .ToString(CultureInfo.InvariantCulture);
+            bVoltageProtection.Text = measurement.data.ps_protection.ToString(CultureInfo.InvariantCulture);
+            sendEvent = true;
+        }
         private async void CheckInstruments()
         {
             power_supply_status.Text = "Updating...";
@@ -140,14 +185,13 @@ namespace SpinWaveTool
             }
             OnProcessEnd();
         }
-
+        
         private void button2_Click(object sender, EventArgs e)
         {
             if (measurement.vna.IsOpen)
             {
                 var start = DateTime.Now;
                 System.IO.File.WriteAllText("testfile.txt", ">" + measurement.vna.DataFlow("C:\\NA_Measurements\\Temp\\test.s2p") + "<");
-                MessageBox.Show((DateTime.Now - start).ToString());
             }
         }
     }

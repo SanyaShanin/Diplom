@@ -216,7 +216,9 @@ namespace SpinWaveTool
         }
         public void SetFreqPoints(double start, double stop, int points)
         {
-            Write("SENS:FREQ:STAR " + start * 1000000 + ";STOP " + stop * 1000000 + ";:SENS:SWE:POIN " + points);
+            string sStart = (start * 1000000).ToString(CultureInfo.InvariantCulture);
+            string sStop  = (stop  * 1000000).ToString(CultureInfo.InvariantCulture);
+            Write("SENS:FREQ:STAR " + sStart + ";STOP " + sStop + ";:SENS:SWE:POIN " + points);
         }
         public void SetBandwidth(int bandwidth)
         {
@@ -307,7 +309,7 @@ namespace SpinWaveTool
         }
         public void VoltageProtectionSet(double protection)
         {
-            Write("VOLT:PROT:LEV " + protection);
+            Write("VOLT:PROT:LEV " + protection.ToString(CultureInfo.InvariantCulture));
         }
         public double VoltageLimitGet()
         {
@@ -315,7 +317,7 @@ namespace SpinWaveTool
         }
         public void VoltageLimitSet(double limit)
         {
-            Write("VOLT " + limit);
+            Write("VOLT " + limit.ToString(CultureInfo.InvariantCulture));
         }
         public double CurrentGet()
         {
@@ -323,7 +325,7 @@ namespace SpinWaveTool
         }
         public void CurrentSet(double current)
         {
-            Write("CURR " + current);
+            Write("CURR " + current.ToString(CultureInfo.InvariantCulture));
         }
         public double VoltageGet()
         {

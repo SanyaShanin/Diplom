@@ -104,8 +104,6 @@ namespace SpinWaveTool
             {
                 double currentField = powerSupply.IsOpen ? data.field_start + data.field_step * i : 0;
 
-                if (state != State.Processing) return;
-                
                 if (powerSupply.IsOpen)
                 {
                     processState = ProcessState.PowerSupply;
@@ -121,8 +119,7 @@ namespace SpinWaveTool
 
                     while(vna.GetTrigger() != VNA.Trigger.HOLD)
                     {
-                        if (state != State.Processing)
-                            return;
+                        if (state != State.Processing) return;
                         Thread.Sleep(100);
                     }
 
@@ -170,7 +167,7 @@ namespace SpinWaveTool
                 set
                 {
                     _field_start = value;
-                    field_end = Math.Max(field_start, field_end);
+                    _field_end = Math.Max(field_start, field_end);
                 }
                 get
                 {
@@ -184,7 +181,7 @@ namespace SpinWaveTool
                 set
                 {
                     _field_end = Math.Max(0, value);
-                    field_start = Math.Min(field_end, field_start);
+                    _field_start = Math.Min(field_end, field_start);
                 }
                 get
                 {
@@ -226,7 +223,7 @@ namespace SpinWaveTool
                 set
                 {
                     _ps_protection = value;
-                    ps_limit = Math.Min(ps_protection - 1, ps_limit);
+                    _ps_limit = Math.Min(ps_protection - 1, ps_limit);
                 }
                 get
                 {
@@ -239,7 +236,7 @@ namespace SpinWaveTool
                 set
                 {
                     _ps_limit = value;
-                    ps_protection = Math.Max(ps_limit + 1, ps_protection);
+                    _ps_protection = Math.Max(ps_limit + 1, ps_protection);
                 }
                 get
                 {
@@ -253,7 +250,7 @@ namespace SpinWaveTool
                 set
                 {
                     _freq_start = Math.Max(0.01, value);
-                    freq_end = Math.Max(freq_start, freq_end);
+                    _freq_end = Math.Max(freq_start, freq_end);
                 }
                 get
                 {
@@ -266,7 +263,7 @@ namespace SpinWaveTool
                 set
                 {
                     _freq_end = Math.Max(0.01, value);
-                    freq_start = Math.Min(freq_start, freq_end);
+                    _freq_start = Math.Min(freq_start, freq_end);
                 }
                 get
                 {
@@ -296,7 +293,7 @@ namespace SpinWaveTool
                 }
                 get
                 {
-                    if (freq_points == 0)
+                    if (freq_points <= 1)
                         return 0;
                     return (freq_end - freq_start) / (freq_points - 1);
                 }

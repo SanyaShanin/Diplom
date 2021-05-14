@@ -213,6 +213,7 @@ namespace SpinWaveTool
             this.bVoltageLimit.Name = "bVoltageLimit";
             this.bVoltageLimit.Size = new System.Drawing.Size(116, 23);
             this.bVoltageLimit.TabIndex = 14;
+            this.bVoltageLimit.Leave += new System.EventHandler(this.ChangeReact);
             // 
             // bVoltageProtection
             // 
@@ -220,6 +221,7 @@ namespace SpinWaveTool
             this.bVoltageProtection.Name = "bVoltageProtection";
             this.bVoltageProtection.Size = new System.Drawing.Size(116, 23);
             this.bVoltageProtection.TabIndex = 13;
+            this.bVoltageProtection.Leave += new System.EventHandler(this.ChangeReact);
             // 
             // bRestartsDelay
             // 
@@ -227,6 +229,7 @@ namespace SpinWaveTool
             this.bRestartsDelay.Name = "bRestartsDelay";
             this.bRestartsDelay.Size = new System.Drawing.Size(116, 23);
             this.bRestartsDelay.TabIndex = 13;
+            this.bRestartsDelay.Leave += new System.EventHandler(this.ChangeReact);
             // 
             // bRestartCount
             // 
@@ -234,6 +237,7 @@ namespace SpinWaveTool
             this.bRestartCount.Name = "bRestartCount";
             this.bRestartCount.Size = new System.Drawing.Size(116, 23);
             this.bRestartCount.TabIndex = 12;
+            this.bRestartCount.Leave += new System.EventHandler(this.ChangeReact);
             // 
             // label10
             // 
@@ -277,6 +281,7 @@ namespace SpinWaveTool
             this.bFieldPoints.Name = "bFieldPoints";
             this.bFieldPoints.Size = new System.Drawing.Size(115, 23);
             this.bFieldPoints.TabIndex = 7;
+            this.bFieldPoints.Leave += new System.EventHandler(this.ChangeReact);
             // 
             // bFieldStep
             // 
@@ -284,6 +289,7 @@ namespace SpinWaveTool
             this.bFieldStep.Name = "bFieldStep";
             this.bFieldStep.Size = new System.Drawing.Size(116, 23);
             this.bFieldStep.TabIndex = 6;
+            this.bFieldStep.Leave += new System.EventHandler(this.ChangeReact);
             // 
             // bFieldEnd
             // 
@@ -291,6 +297,8 @@ namespace SpinWaveTool
             this.bFieldEnd.Name = "bFieldEnd";
             this.bFieldEnd.Size = new System.Drawing.Size(115, 23);
             this.bFieldEnd.TabIndex = 5;
+            this.bFieldEnd.Leave += new System.EventHandler(this.ChangeReact);
+            this.bFieldEnd.Validated += new System.EventHandler(this.ChangeReact);
             // 
             // bFieldStart
             // 
@@ -298,6 +306,7 @@ namespace SpinWaveTool
             this.bFieldStart.Name = "bFieldStart";
             this.bFieldStart.Size = new System.Drawing.Size(116, 23);
             this.bFieldStart.TabIndex = 4;
+            this.bFieldStart.Validated += new System.EventHandler(this.ChangeReact);
             // 
             // label6
             // 
