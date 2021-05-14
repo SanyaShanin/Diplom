@@ -17,3 +17,5 @@ D:\Учоба\диплом\VisualStudioProject\SpinWaveTool\SpinWaveTool\obj\Deb
 D:\Учоба\диплом\VisualStudioProject\SpinWaveTool\SpinWaveTool\obj\Debug\net5.0-windows\ref\SpinWaveTool.dll
 D:\Учоба\диплом\VisualStudioProject\SpinWaveTool\SpinWaveTool\obj\Debug\net5.0-windows\SpinWaveTool.pdb
 D:\Учоба\диплом\VisualStudioProject\SpinWaveTool\SpinWaveTool\obj\Debug\net5.0-windows\SpinWaveTool.genruntimeconfig.cache
+D:\Учоба\диплом\VisualStudioProject\SpinWaveTool\SpinWaveTool\bin\Debug\net5.0-windows\INIFileParser.dll
+D:\Учоба\диплом\VisualStudioProject\SpinWaveTool\SpinWaveTool\obj\Debug\net5.0-windows\SpinWaveTool.csproj.CopyComplete

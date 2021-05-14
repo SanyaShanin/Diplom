@@ -17,12 +17,27 @@ namespace SpinWaveTool
         public void Open(string hostname);
         public Task OpenAsync(string hostname);
         public void Close();
+        public string host
+        {
+            get
+            {
+                return "";
+            }
+        }
     }
     public class TelnetConnection : IInstrument
     {
         TcpClient m_Client;
         NetworkStream m_Stream;
         bool m_IsOpen = false;
+        bool busy = false;
+        public string host
+        {
+            get
+            {
+                return m_Hostname;
+            }
+        }
         string m_Hostname;
         int m_ReadTimeout = 1000; // ms
         public int port = 5025;
@@ -57,11 +72,16 @@ namespace SpinWaveTool
 
             //FieldFox Programming Guide 6
             CheckOpen();
+
+            while (busy) { };
+
+            busy = true;
             byte[] bytes = System.Text.ASCIIEncoding.ASCII.GetBytes(str);
             m_Stream.Write(bytes);
             WriteTerminator();
             if (str.IndexOf('?') >= 0 && callback != null)
                 callback(Read());
+            busy = false;
         }
         public async void WriteAsync(string str, Action<string> callback = null)
         {
@@ -159,6 +179,7 @@ namespace SpinWaveTool
             m_Stream = m_Client.GetStream();
             m_Stream.ReadTimeout = ReadTimeout;
             m_IsOpen = true;
+            busy = false;
             if (Opened != null)
                 Opened();
         }
@@ -172,6 +193,7 @@ namespace SpinWaveTool
             if (!m_IsOpen)
                 return;
 
+            busy = false;
             m_Stream.Close();
             m_Client.Close();
             m_IsOpen = false;
@@ -220,6 +242,14 @@ namespace SpinWaveTool
         Socket Async;
         Socket Sync;
 
+        public string host
+        {
+            get
+            {
+                return m_Hostname;
+            }
+        }
+        bool busy = false;
         bool m_IsOpen = false;
         string m_Hostname;
         int m_ReadTimeout = 1000; // ms
@@ -270,6 +300,8 @@ namespace SpinWaveTool
         }
         public void Write(string message, Action<string> callback = null)
         {
+            while (busy) { }
+            busy = true;
             Write(false, Messages.DataEnd(message + "\n", message_id));
             if (message[message.Length - 1] == '?' && callback != null)
             {
@@ -277,6 +309,7 @@ namespace SpinWaveTool
                 callback(answer.Remove(answer.Length - 1));
                 Console.WriteLine(answer);
             }
+            busy = false;
         }
         public async void WriteAsync(string message, Action<string> callback = null)
         {
@@ -289,6 +322,8 @@ namespace SpinWaveTool
 
             m_Hostname = hostname;
             Print("Attemp to connect async and sync connections on a " + hostname);
+
+            busy = false;
 
             Sync = new Socket(SocketType.Stream, ProtocolType.Tcp);
             Sync.ReceiveTimeout = 2000;
@@ -319,7 +354,6 @@ namespace SpinWaveTool
             Print("my sessionID: " + sessionID);
             Print("Sync init success");
         }
-
         public void ConnectAsync()
         {
             Print("Send AsyncInitialize event");

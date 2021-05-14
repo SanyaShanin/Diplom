@@ -1,8 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "DMqj2x7qzKZGddCW0S/010Ssi2Bz75vODHo+lGCh7bfetRaD+DXV/EmsfFL6t2ywXkwd+1AC8W3jTlcJQRL/Gg==",
+  "dgSpecHash": "CgEt4zlJQBAhyGzgmcwPFw/MXE3zTSfQocZtX+IA3VSvBZN5IzpmwzPPpc64oi/6MAA6IYmXH5G+cN2/9gQCEQ==",
   "success": true,
   "projectFilePath": "D:\\Учоба\\диплом\\VisualStudioProject\\SpinWaveTool\\SpinWaveTool\\SpinWaveTool.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "expectedPackageFiles": [
+    "C:\\Users\\Vishnya\\.nuget\\packages\\ini-parser\\2.5.2\\ini-parser.2.5.2.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"ini-parser 2.5.2\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \"net5.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "ini-parser",
+      "targetGraphs": [
+        "net5.0-windows7.0"
+      ]
+    }
+  ]
 }

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
+
 
 namespace SpinWaveTool
 {
@@ -27,12 +30,19 @@ namespace SpinWaveTool
             return (connected ? "Connected;" : "") + (validate ? "Validated;" : "") + (error != "" ? "Error: " + error : "Response: " + response);
         }
     }
-    public class InstrumentInterface
+    public class InstrumentInterface : IDisposable
     {
         public static string name = "";
-        public static IInstrument instance = null;
+        public IInstrument instance = null;
         static IInstrument instance_checking = null;
-        public static bool IsOpen
+        public string host
+        {
+            get
+            {
+                return instance != null ? instance.host : "";
+            }
+        }
+        public bool IsOpen
         {
             get
             {
@@ -40,15 +50,16 @@ namespace SpinWaveTool
             }
         }
         public static bool Reached { get; set; }
-        static IInstrument Connect(string host)
+        public virtual IInstrument Connect(string host)
         {
             return null;
         }
-        public static void Open(string host)
+        public void Open(string host)
         {
             try
             {
                 instance = Connect(host);
+                CLS();
                 Reached = true;
             } 
             catch
@@ -56,7 +67,7 @@ namespace SpinWaveTool
                 Reached = false;
             }
         }
-        public static void Close(string host)
+        public void Close(string host)
         {
             if (!IsOpen)
             {
@@ -64,14 +75,14 @@ namespace SpinWaveTool
                 instance = null;
             }
         }
-        public static void Write(string command, Action<string> callback = null)
+        public void Write(string command, Action<string> callback = null)
         {
             if (IsOpen)
             {
                 instance.Write(command, callback);
             }
         }
-        public static string WriteRead(string command)
+        public string WriteRead(string command)
         {
             string answer = "";
             if (IsOpen)
@@ -83,28 +94,47 @@ namespace SpinWaveTool
             }
             return answer;
         }
-        public static double WriteReadDouble(string command)
+        public double WriteReadDouble(string command)
         {
             if (!IsOpen) return 0;
-            return Convert.ToDouble(WriteRead(command));
+            var answer = WriteRead(command);
+            var styles = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands |
+               NumberStyles.AllowExponent;
+            var provider = CultureInfo.CreateSpecificCulture("en-GB");
+            if (answer[0] == '+')
+                answer = answer.Remove(0, 1);
+            return Double.Parse(answer, styles, provider);
         }
-        public static string IDN()
+        public string IDN()
         {
             return WriteRead("*IDN?");
         }
-        public static string OPC()
+        public string OPC()
         {
             return WriteRead("*OPC?");
         }
-        public static void CLS()
+        public void CLS()
         {
             Write("*CLS");
         }
-        public static string ERROR()
+        public string ERROR()
         {
             return WriteRead("SYST:ERR?");
         }
-        public static void CheckStatus(string host, Action<InstrumentStatus> callback)
+        public void Init()
+        {
+            
+        }
+        public void ShutDown()
+        {
+
+        }
+        public void Dispose()
+        {
+            ShutDown();
+            instance?.Dispose();
+        }
+        public async Task<InstrumentStatus> CheckStatus(string host)
         {
             if (instance_checking != null)
                 instance_checking.Dispose();
@@ -112,16 +142,19 @@ namespace SpinWaveTool
             var status = new InstrumentStatus();
             try
             {
-                instance_checking = Connect(host);
-                instance_checking.Write("*IDN?", (answer) =>
+                await Task.Run(() =>
                 {
-                    if (answer.Contains(name))
+                    instance_checking = Connect(host);
+                    instance_checking.Write("*IDN?", (answer) =>
                     {
-                        status.validate = true;
-                        status.response = answer;
-                    }
-                    else
-                        status.error = "Wrong instrument: " + answer + ", " + name + " excepted!";
+                        if (answer.Contains(name))
+                        {
+                            status.validate = true;
+                            status.response = answer;
+                        }
+                        else
+                            status.error = "Wrong instrument: " + answer + ", " + name + " excepted!";
+                    });
                 });
             }
             catch(Exception e)
@@ -129,68 +162,190 @@ namespace SpinWaveTool
                 status.error = e.Message;
             }
             Reached = status.status;
-            callback(status);
+            return status;
         }
     }
     public class VNA : InstrumentInterface
     {
         public static new string name = "M9374A";
         
-        
-    }
+        public enum CalcParameter
+        {
+            OFF,
+            S11,
+            S12,
+            S21,
+            S22
+        }
+        public enum DataFormat
+        {
+            MLOG,
+            PHAS,
+            GDEL,
+            SLIN,
+            SLOG,
+            SCOM,
+            SMIT,
+            SADM,
+            PLIN,
+            PLOG,
+            POL ,
+            MLIN,
+            SWR ,
+            REAL,
+            IMAG,
+            UPH ,
+            PPH
+        }
+        public enum Trigger
+        {
+            HOLD,
+            CONT,
+            GRO,
+            SING
+        }
+        public override IInstrument Connect(string host)
+        {
+            var connect = new Hislip();
+            connect.Open(host);
+            return connect;
+        }
+        public void SetSelectedMeasurement()
+        {
+            Write("CALC1:PAR:MNUM 1");
+        }
+        public void SetFreqPoints(double start, double stop, int points)
+        {
+            Write("SENS:FREQ:STAR " + start * 1000000 + ";STOP " + stop * 1000000 + ";:SENS:SWE:POIN " + points);
+        }
+        public void SetBandwidth(int bandwidth)
+        {
+            Write("SENS:BWID " + bandwidth);
+        }
+        public void SetPowerLevel(double power)
+        {
+            Write("SOUR1:POW1:LEVel:IMMediate:AMPLitude " + power);
+        }
+        public void ConfigMeasurements(List<CalcParameter> calcs, List<DataFormat> formats)
+        {
+            string command =  ":DISP:WIND1:ENAB 1;" +
+                              ":CALC:PAR:COUN 0;";
 
+            int index = 1;
+            for(var i = 0; i < calcs.Count; i++)
+            {
+                var calc = calcs[i];
+                var format = formats[i];
+
+                if (calc == CalcParameter.OFF)
+                    continue;
+
+                command += String.Format(":CALC:PAR:EXT '{0}', '{0}';" +
+                                         ":DISP:WIND:TRAC{1}:FEED '{0}';" +
+                                         ":CALC:PAR:SEL '{0}';" +
+                                         ":CALC:FORM {2};", new string[] { calc.ToString(), index.ToString(), format.ToString() });
+                index++;
+            }
+
+            Write(command);
+        }
+        public void SetTrigger(Trigger trigger)
+        {
+            Write("SENS:SWE:MODE " + trigger);
+        }
+        public Trigger GetTrigger()
+        {
+            return Enum.Parse<Trigger>(WriteRead("SENS:SWE:MODE?"));
+        }
+        public void DataSave(string filename)
+        {
+            Write(String.Format("CALC1:DATA:SNP:PORT:SAVE '1,2','{0}'", filename));
+        }
+        public string DataFlow(string filename)
+        {
+            return WriteRead(string.Format(":MMEM:TRAN? '{0}'", filename));
+        }
+    }
     public class PowerSupply : InstrumentInterface
     {
         public static new string name = "N6745A";
-        
-        public static double MeasureCurrent()
+        public override IInstrument Connect(string host)
+        {
+            var connect = new TelnetConnection();
+            connect.Open(host);
+            return connect;
+        }
+        public new void Init()
+        {
+            Init(20, 25);
+        }
+        public void Init(double voltage_limit, double voltage_protection)
+        {
+            VoltageLimitSet(voltage_limit);
+            VoltageProtectionSet(voltage_protection);
+        }
+        public new void ShutDown()
+        {
+            OutputSet(false);
+        }
+        public double MeasureCurrent()
         {
             return WriteReadDouble("MEAS:CURR?");
         }
-        public static double MeasureVoltage()
+        public double MeasureVoltage()
         {
             return WriteReadDouble("MEAS:VOLT?");
         }
-        public static double VoltageProtectionGet()
+        public double VoltageProtectionGet()
         {
             return WriteReadDouble("VOLT:PROT:LEV?");
         }
-        public static void VoltageProtectionSet(double protection)
+        public void VoltageProtectionSet(double protection)
         {
             Write("VOLT:PROT:LEV " + protection);
         }
-        public static double VoltageLimitGet()
+        public double VoltageLimitGet()
         {
             return WriteReadDouble("VOLT?");
         }
-        public static void VoltageLimitSet(double limit)
+        public void VoltageLimitSet(double limit)
         {
             Write("VOLT " + limit);
         }
-        public static double CurrentGet()
+        public double CurrentGet()
         {
             return WriteReadDouble("CURR?");
         }
-        public static void CurrentSet(double current)
+        public void CurrentSet(double current)
         {
             Write("CURR " + current);
         }
-        public static bool OutputGet()
+        public double VoltageGet()
+        {
+            return WriteReadDouble("MEAS:VOLT?");
+        }
+        public bool OutputGet()
         {
             return WriteRead("VOLT?") == "1";
         }
-        public static void OutputSet(bool status)
+        public void OutputSet(bool status)
         {
-            Write("VOLT " + (status ? "ON" : "OFF"));
+            Write("OUTP " + (status ? "ON" : "OFF"));
         }
-
-        public static void SafeCurrentSet(double current)
+        public void SafeCurrentSet(double current, int cycles = 4, int sleep = 750)
         {
-            CurrentSet(current);
-            for(var i = 0; i < 4; i++)
+            if (current == 0)
             {
                 OutputSet(false);
+                return;
+            }
+            CurrentSet(current);
+            for(var i = 0; i < cycles; i++)
+            {
+                OutputSet(false);
+                Thread.Sleep(sleep);
                 OutputSet(true);
+                Thread.Sleep(sleep);
             }
         }
     }
