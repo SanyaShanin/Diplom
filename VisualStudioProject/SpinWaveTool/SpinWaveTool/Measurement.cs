@@ -17,6 +17,7 @@ namespace SpinWaveTool
         public enum State
         {
             Disable,
+            Connecting,
             Starting,
             Processing,
             Ending
@@ -58,9 +59,11 @@ namespace SpinWaveTool
         }
         public async Task Start() 
         {
-            state = State.Starting;
+            state = State.Connecting;
 
             TryToConnect();
+
+            state = State.Starting;
 
             if (powerSupply.IsOpen)
             {
