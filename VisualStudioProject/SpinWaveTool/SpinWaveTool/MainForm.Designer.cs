@@ -107,6 +107,7 @@ namespace SpinWaveTool
             this.menuMain = new System.Windows.Forms.MenuStrip();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.lTrigger = new System.Windows.Forms.Label();
+            this.updateGraph = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.address.SuspendLayout();
             this.power_supply.SuspendLayout();
@@ -877,6 +878,8 @@ namespace SpinWaveTool
             // 
             // process
             // 
+            this.process.Controls.Add(this.button2);
+            this.process.Controls.Add(this.updateGraph);
             this.process.Controls.Add(this.groupBox8);
             this.process.Controls.Add(this.labelProcessState);
             this.process.Controls.Add(this.labelState);
@@ -987,7 +990,7 @@ namespace SpinWaveTool
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(758, 189);
+            this.button2.Location = new System.Drawing.Point(3, 400);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -1022,12 +1025,20 @@ namespace SpinWaveTool
             this.lTrigger.TabIndex = 0;
             this.lTrigger.Text = "Trigger:";
             // 
+            // updateGraph
+            // 
+            this.updateGraph.Location = new System.Drawing.Point(4, 364);
+            this.updateGraph.Name = "updateGraph";
+            this.updateGraph.Size = new System.Drawing.Size(241, 30);
+            this.updateGraph.TabIndex = 7;
+            this.updateGraph.Text = "Update Graph";
+            this.updateGraph.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 627);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuMain);
             this.MainMenuStrip = this.menuMain;
@@ -1146,6 +1157,7 @@ namespace SpinWaveTool
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label lTrigger;
+        private System.Windows.Forms.Button updateGraph;
     }
 }
 

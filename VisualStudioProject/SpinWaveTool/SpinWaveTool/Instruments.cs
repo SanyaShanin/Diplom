@@ -272,6 +272,10 @@ namespace SpinWaveTool
             }
             return answer;
         }
+        public string MeasurementGetData(string type = "FDATA")
+        {
+            return WriteRead("CALC1:DATA? FDATA");
+        }
     }
     public class PowerSupply : InstrumentInterface
     {
