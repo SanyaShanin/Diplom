@@ -1,21 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "CgEt4zlJQBAhyGzgmcwPFw/MXE3zTSfQocZtX+IA3VSvBZN5IzpmwzPPpc64oi/6MAA6IYmXH5G+cN2/9gQCEQ==",
-  "success": true,
+  "dgSpecHash": "B4oH/SO0fFTOnoCeXguFXITdGMR7XPfUC4bgAlv4yiNM3DXRi/yJ1H3qZzMfoDwcFB6IiZ0JbSnB1CwsZPFyIA==",
+  "success": false,
   "projectFilePath": "D:\\Учоба\\диплом\\VisualStudioProject\\SpinWaveTool\\SpinWaveTool\\SpinWaveTool.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Vishnya\\.nuget\\packages\\ini-parser\\2.5.2\\ini-parser.2.5.2.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": [
     {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Пакет \"ini-parser 2.5.2\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \"net5.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "libraryId": "ini-parser",
-      "targetGraphs": [
-        "net5.0-windows7.0"
-      ]
+      "code": "NU1105",
+      "level": "Error",
+      "message": "Невозможно прочитать сведения о проекте для \"SpinWaveTool\": Идентификатор платформы \"\" недопустим."
     }
   ]
 }

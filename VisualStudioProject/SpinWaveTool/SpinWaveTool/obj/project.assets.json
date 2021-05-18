@@ -1,49 +1,16 @@
 {
   "version": 3,
-  "targets": {
-    "net5.0-windows7.0": {
-      "ini-parser/2.5.2": {
-        "type": "package",
-        "compile": {
-          "lib/net20/INIFileParser.dll": {}
-        },
-        "runtime": {
-          "lib/net20/INIFileParser.dll": {}
-        }
-      }
-    }
-  },
-  "libraries": {
-    "ini-parser/2.5.2": {
-      "sha512": "hp3gKmC/14+6eKLgv7Jd1Z7OV86lO+tNfOXr/stQbwmRhdQuXVSvrRAuAe7G5+lwhkov0XkqZ8/bn1PYWMx6eg==",
-      "type": "package",
-      "path": "ini-parser/2.5.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ini-parser.2.5.2.nupkg.sha512",
-        "ini-parser.nuspec",
-        "lib/net20/INIFileParser.dll",
-        "lib/net20/INIFileParser.dll.mdb",
-        "lib/net20/INIFileParser.xml"
-      ]
-    }
-  },
-  "projectFileDependencyGroups": {
-    "net5.0-windows7.0": [
-      "ini-parser >= 2.5.2"
-    ]
-  },
+  "targets": {},
+  "libraries": {},
+  "projectFileDependencyGroups": {},
   "packageFolders": {
     "C:\\Users\\Vishnya\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
-    "version": "1.0.0",
     "restore": {
       "projectUniqueName": "D:\\Учоба\\диплом\\VisualStudioProject\\SpinWaveTool\\SpinWaveTool\\SpinWaveTool.csproj",
-      "projectName": "SpinWaveTool",
       "projectPath": "D:\\Учоба\\диплом\\VisualStudioProject\\SpinWaveTool\\SpinWaveTool\\SpinWaveTool.csproj",
       "packagesPath": "C:\\Users\\Vishnya\\.nuget\\packages\\",
       "outputPath": "D:\\Учоба\\диплом\\VisualStudioProject\\SpinWaveTool\\SpinWaveTool\\obj\\",
@@ -58,66 +25,17 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
-      "originalTargetFrameworks": [
-        "net5.0-windows7.0"
-      ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
-      },
-      "frameworks": {
-        "net5.0-windows7.0": {
-          "targetAlias": "net5.0-windows",
-          "projectReferences": {}
-        }
-      },
-      "warningProperties": {
-        "warnAsError": [
-          "NU1605"
-        ]
-      }
-    },
-    "frameworks": {
-      "net5.0-windows7.0": {
-        "targetAlias": "net5.0-windows",
-        "dependencies": {
-          "ini-parser": {
-            "target": "Package",
-            "version": "[2.5.2, )"
-          }
-        },
-        "imports": [
-          "net461",
-          "net462",
-          "net47",
-          "net471",
-          "net472",
-          "net48"
-        ],
-        "assetTargetFallback": true,
-        "warn": true,
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          },
-          "Microsoft.WindowsDesktop.App.WindowsForms": {
-            "privateAssets": "none"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
     {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Пакет \"ini-parser 2.5.2\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \"net5.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "libraryId": "ini-parser",
-      "targetGraphs": [
-        "net5.0-windows7.0"
-      ]
+      "code": "NU1105",
+      "level": "Error",
+      "message": "Невозможно прочитать сведения о проекте для \"SpinWaveTool\": Идентификатор платформы \"\" недопустим."
     }
   ]
 }
