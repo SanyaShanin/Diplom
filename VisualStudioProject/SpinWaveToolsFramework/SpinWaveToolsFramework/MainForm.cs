@@ -101,6 +101,8 @@ namespace SpinWaveToolsFramework
                 
                 case "bFilePath":           data.filePath = text; break;
                 case "bFileExt":            data.fileExt = text; break;
+
+                case "bDuplicate":          data.duplicate_path = text; break;
             }
             UpdateData();
         }
@@ -140,6 +142,9 @@ namespace SpinWaveToolsFramework
 
             bFilePath.Text = measurement.data.filePath;
             bFileExt.Text = measurement.data.fileExt;
+
+            cDuplicate.Checked = measurement.data.duplicate;
+            bDuplicatePath.Text = measurement.data.duplicate_path;
 
             sendEvent = true;
         }
@@ -206,6 +211,7 @@ namespace SpinWaveToolsFramework
         }
         private void OnProcessStart()
         {
+            menuMain.Enabled = false;
             button_start.Enabled = false;
             for(var i = 0; i < tabControl1.TabCount - 1; i++)
             {
@@ -215,6 +221,7 @@ namespace SpinWaveToolsFramework
                 }
             }
             tabControl1.TabPages[4].Select();
+            menuMain.Enabled = true;
         }
         private void OnProcessEnd()
         {
@@ -316,6 +323,55 @@ namespace SpinWaveToolsFramework
 
                 chart1.Series.Add(serie);
             }
+        }
+
+        private void cDuplicate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!sendEvent) return;
+            sendEvent = false;
+            measurement.data.duplicate = (sender as CheckBox).Checked;
+            sendEvent = true;
+        }
+
+        private void setDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            measurement.data = new Measurement.Data();
+            UpdateData();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "*.ini|Ini File";
+            dialog.DefaultExt = ".ini";
+            dialog.Title = "Save Settings";
+            dialog.AddExtension = true;
+            var result = dialog.ShowDialog();
+
+            if (result == DialogResult.OK || result == DialogResult.Yes)
+            {
+                measurement.data.Save(dialog.FileName);
+            }
+
+            dialog.Dispose();
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Ini File|*.ini";
+            dialog.DefaultExt = ".ini";
+            dialog.Title = "Save Settings";
+            dialog.AddExtension = true;
+            var result = dialog.ShowDialog();
+
+            if (result == DialogResult.OK || result == DialogResult.Yes)
+            {
+                measurement.data.Load(dialog.FileName);
+                UpdateData();
+            }
+
+            dialog.Dispose();
         }
     }
 }

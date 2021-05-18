@@ -128,7 +128,17 @@ namespace SpinWaveToolsFramework
 
                     if (state != State.Processing) return;
 
-                    vna.DataSave(data.filePath + currentField + data.fileExt);
+                    string filename = data.filePath + currentField + data.fileExt;
+                    vna.DataSave(filename);
+                    vna.OPC();
+
+                    if (data.duplicate)
+                    {
+                        string content = vna.DataFlow(filename);
+                        string name = Path.GetFileName(filename);
+                        string newname = data.duplicate_path + name;
+                        File.WriteAllText(newname, content);
+                    }
                 });
 
                 if (state != State.Processing) return;
@@ -164,6 +174,10 @@ namespace SpinWaveToolsFramework
         {
             public List<VNA.CalcParameter> parameters = new List<VNA.CalcParameter> { VNA.CalcParameter.S11, VNA.CalcParameter.S12, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF};
             public List<VNA.DataFormat> formats = new List<VNA.DataFormat> { VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG };
+
+
+            public bool duplicate = true;
+            public string duplicate_path = "D:/Measurements/";
 
             public double field_start
             {
@@ -394,6 +408,8 @@ namespace SpinWaveToolsFramework
 
                 data["settings"]["path"] = filePath;
                 data["settings"]["ext"] = fileExt;
+                data["settings"]["duplicate"] = duplicate ? "on" : "off";
+                data["settings"]["duplicate_path"] = duplicate_path;
                 File.WriteAllText(file, data.ToString());
             }
             public void Load(string file)
@@ -424,6 +440,8 @@ namespace SpinWaveToolsFramework
 
                 filePath = data["settings"]["path"];
                 fileExt = data["settings"]["ext"];
+                duplicate = data["settings"]["duplicate"] == "on";
+                duplicate_path = data["settings"]["duplicate_path"];
             }
         }
     }

@@ -29,9 +29,9 @@ namespace SpinWaveToolsFramework
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.address = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -112,6 +112,17 @@ namespace SpinWaveToolsFramework
             this.button_start = new System.Windows.Forms.Button();
             this.menuMain = new System.Windows.Forms.MenuStrip();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.bDuplicatePath = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.cDuplicate = new System.Windows.Forms.CheckBox();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setDefaultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1.SuspendLayout();
             this.address.SuspendLayout();
             this.power_supply.SuspendLayout();
@@ -126,6 +137,7 @@ namespace SpinWaveToolsFramework
             this.process.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.menuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -833,6 +845,9 @@ namespace SpinWaveToolsFramework
             // 
             // settings
             // 
+            this.settings.Controls.Add(this.cDuplicate);
+            this.settings.Controls.Add(this.bDuplicatePath);
+            this.settings.Controls.Add(this.label25);
             this.settings.Controls.Add(this.bFileExt);
             this.settings.Controls.Add(this.bFilePath);
             this.settings.Controls.Add(this.label24);
@@ -1031,6 +1046,9 @@ namespace SpinWaveToolsFramework
             // 
             // menuMain
             // 
+            this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.settingsToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Size = new System.Drawing.Size(1012, 24);
@@ -1039,32 +1057,122 @@ namespace SpinWaveToolsFramework
             // 
             // chart1
             // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
-            chartArea1.AxisX.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
-            chartArea1.AxisY2.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.BorderColor = System.Drawing.Color.Gainsboro;
-            chartArea1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea1.BorderWidth = 3;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea4.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea4.AxisY2.LineColor = System.Drawing.Color.DimGray;
+            chartArea4.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea4.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea4.BorderWidth = 3;
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
             this.chart1.IsSoftShadows = false;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend4.Name = "Legend1";
+            this.chart1.Legends.Add(legend4);
             this.chart1.Location = new System.Drawing.Point(284, 27);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(718, 584);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
             this.chart1.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.Normal;
+            // 
+            // bDuplicatePath
+            // 
+            this.bDuplicatePath.Location = new System.Drawing.Point(11, 153);
+            this.bDuplicatePath.Name = "bDuplicatePath";
+            this.bDuplicatePath.Size = new System.Drawing.Size(231, 23);
+            this.bDuplicatePath.TabIndex = 5;
+            this.bDuplicatePath.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnAccept);
+            this.bDuplicatePath.Leave += new System.EventHandler(this.ChangeReact);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(11, 135);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(83, 15);
+            this.label25.TabIndex = 4;
+            this.label25.Text = "Local File Path";
+            // 
+            // cDuplicate
+            // 
+            this.cDuplicate.AutoSize = true;
+            this.cDuplicate.Location = new System.Drawing.Point(11, 113);
+            this.cDuplicate.Name = "cDuplicate";
+            this.cDuplicate.Size = new System.Drawing.Size(167, 19);
+            this.cDuplicate.TabIndex = 6;
+            this.cDuplicate.Text = "Duplicate to local machine";
+            this.cDuplicate.UseVisualStyleBackColor = true;
+            this.cDuplicate.CheckedChanged += new System.EventHandler(this.cDuplicate_CheckedChanged);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.loadToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.setDefaultsToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // setDefaultsToolStripMenuItem
+            // 
+            this.setDefaultsToolStripMenuItem.Name = "setDefaultsToolStripMenuItem";
+            this.setDefaultsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setDefaultsToolStripMenuItem.Text = "Set Defaults";
+            this.setDefaultsToolStripMenuItem.Click += new System.EventHandler(this.setDefaultsToolStripMenuItem_Click);
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // MainForm
             // 
@@ -1105,6 +1213,8 @@ namespace SpinWaveToolsFramework
             this.groupBox8.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.menuMain.ResumeLayout(false);
+            this.menuMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1195,6 +1305,17 @@ namespace SpinWaveToolsFramework
         private System.Windows.Forms.Label lTrigger;
         private System.Windows.Forms.Button updateGraph;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.CheckBox cDuplicate;
+        private System.Windows.Forms.TextBox bDuplicatePath;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem setDefaultsToolStripMenuItem;
     }
 }
 
