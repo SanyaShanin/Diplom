@@ -90,6 +90,7 @@ namespace SpinWaveToolsFramework
                 instance.Write(command, (a) =>
                 {
                     answer = a;
+                        
                 });
             }
             return answer;
@@ -228,6 +229,10 @@ namespace SpinWaveToolsFramework
         {
             Write("SOUR1:POW1:LEVel:IMMediate:AMPLitude " + power);
         }
+        public void SelectMeasurement(string name)
+        {
+            Write(String.Format(":CALC:PAR:SEL '{0}';", name));
+        }
         public void ConfigMeasurements(List<CalcParameter> calcs, List<DataFormat> formats)
         {
             string command =  ":DISP:WIND1:ENAB 1;" +
@@ -257,7 +262,13 @@ namespace SpinWaveToolsFramework
         }
         public Trigger GetTrigger()
         {
-            return (Trigger)Enum.Parse(typeof(Trigger), WriteRead("SENS:SWE:MODE?"), true);
+            try
+            {
+                return (Trigger)Enum.Parse(typeof(Trigger), WriteRead("SENS:SWE:MODE?"), true);
+            } catch
+            {
+                return Trigger.GRO;
+            }
         }
         public void DataSave(string filename)
         {

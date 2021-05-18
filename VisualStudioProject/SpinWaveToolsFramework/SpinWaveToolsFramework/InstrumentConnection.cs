@@ -290,24 +290,29 @@ namespace SpinWaveToolsFramework
         {
             while (busy) { }
             busy = true;
-            Write(false, Messages.DataEnd(message + "\n", message_id));
-            if (callback != null)
+            try
             {
-                var answer = "";
-                var answer_message = ReadMessage(Sync);
-                while (answer_message.parameter != message_id)
+                Write(false, Messages.DataEnd(message + "\n", message_id));
+                if (callback != null)
                 {
-                    answer_message = ReadMessage(Sync);
-                }
-                answer += answer_message.message;
-                while (answer_message.type == MessageType.Data)
-                {
-                    answer_message = ReadMessage(Sync);
+                    //Thread.Sleep(300);
+                    var answer = "";
+                    var answer_message = ReadMessage(Sync);
+                    while (answer_message.parameter != message_id)
+                    {
+                        answer_message = ReadMessage(Sync);
+                    }
                     answer += answer_message.message;
+                    while (answer_message.type == MessageType.Data)
+                    {
+                        answer_message = ReadMessage(Sync);
+                        answer += answer_message.message;
+                    }
+                    callback(answer.Remove(answer.Length - 1));
+                    Console.WriteLine(answer);
                 }
-                callback(answer.Remove(answer.Length - 1));
-                Console.WriteLine(answer);
             }
+            catch { }
             busy = false;
             message_id++;
         }
@@ -326,13 +331,13 @@ namespace SpinWaveToolsFramework
             busy = false;
 
             Sync = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            Sync.ReceiveTimeout = 2000;
+            Sync.ReceiveTimeout = 3000;
             Sync.Connect(hostname, port);
             Print("Sync client connected");
             ConnectSync();
 
             Async = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            Async.ReceiveTimeout = 2000;
+            Async.ReceiveTimeout = 3000;
             Async.Connect(hostname, port);
             Print("Async client connected");
             ConnectAsync();
@@ -400,7 +405,16 @@ namespace SpinWaveToolsFramework
             var data = new byte[length];
             if (length > 0)
             {
-                socket.Receive(data);
+                var come = socket.Receive(data);
+                if (come < length)
+                {
+                    int offset = come;
+                    while(offset < length)
+                    {
+                        come = socket.Receive(data, offset, (int)length - offset, SocketFlags.None);
+                        offset += come;
+                    }
+                }
             }
             return new Message()
                 .SetCode((byte)code)

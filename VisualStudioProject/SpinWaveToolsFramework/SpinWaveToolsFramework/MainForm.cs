@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,21 +23,14 @@ namespace SpinWaveToolsFramework
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //MessageBox.Show(VNA.CalcParameter.S11.ToString());
             CheckInstruments();
             StatusUpdater();
             UpdateData();
-
-            //bFieldStart.LostFocus += (sender, args) => { MessageBox.Show("changed"); ChangeReact(sender, args); };
-            //bFieldEnd.LostFocus += ChangeReact;
         }
-
         private void address_power_supply_TextChanged(object sender, EventArgs e)
         {
-            
             CheckInstruments();
         }
-
         private void address_vna_TextChanged(object sender, EventArgs e)
         {
             measurement.addressVNA = ((TextBox)sender).Text;
@@ -110,7 +104,6 @@ namespace SpinWaveToolsFramework
             }
             UpdateData();
         }
-        
         private void UpdateData()
         {
             sendEvent = false;
@@ -181,7 +174,7 @@ namespace SpinWaveToolsFramework
         {
             List<string> output = new List<string>();
             await Task.Run(() => {
-                powerSupplyStatus.Text = measurement.powerSupply.IsOpen ? "Ready" : "Failed";
+                //powerSupplyStatus.Text = measurement.powerSupply.IsOpen ? "Ready" : "Failed";
                 if (measurement.powerSupply.IsOpen)
                 {
                     output.Add(measurement.powerSupply.CurrentGet().ToString());
@@ -269,6 +262,60 @@ namespace SpinWaveToolsFramework
             data.SetParameter(1, (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter),sour2.Text, true), (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), format2.Text, true));
             data.SetParameter(2, (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter),sour3.Text, true), (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), format3.Text, true));
             data.SetParameter(3, (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter),sour4.Text, true), (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), format4.Text, true));
+        }
+
+        private async void updateGraph_Click(object sender, EventArgs e)
+        {
+            chart1.Series.Clear();
+            chart1.Legends.Clear();
+            for (var i = 0; i < 4; i++)
+            {
+                var calc = measurement.data.GetParameter(i);
+                if (calc.Key == VNA.CalcParameter.OFF) continue;
+
+                var serie = new System.Windows.Forms.DataVisualization.Charting.Series(calc.Key.ToString());// chart1.Series.Add(calc.Key.ToString());
+                var legend = chart1.Legends.Add(calc.Key.ToString());
+                serie.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+
+                string data;
+                string[] parse = Array.Empty<string>();
+                int it = 0;
+
+                await Task.Run(() =>
+                {
+                    if (measurement.vna.IsOpen)
+                    {
+                        measurement.vna.SelectMeasurement(calc.Key.ToString());
+                        data = measurement.vna.MeasurementGetData();
+                    }
+                    else
+                    {
+                        data = "";
+                        var r = new Random(DateTime.Now.Millisecond);
+                        for (var j = 0; j < 8001; j++)
+                        {
+                            data += (r.NextDouble() * 10 + i*100).ToString() + ",";
+                        }
+                    }
+                    parse = data.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    File.WriteAllText("data.txt", data);
+                    File.WriteAllText("parse.txt", String.Join("\n", parse.ToArray().ToArray()));
+                });
+
+                await Task.Run(() =>
+                {
+                    foreach (var point in parse)
+                    {
+                        var provider = CultureInfo.CreateSpecificCulture("en-GB");
+                        var value = Double.Parse(point, NumberStyles.Float, provider);
+                        serie.Points.Add(new System.Windows.Forms.DataVisualization.Charting.DataPoint(it, value));
+                        it++;
+                    }
+                });
+
+                chart1.Series.Add(serie);
+            }
         }
     }
 }
