@@ -169,7 +169,13 @@ namespace SpinWaveToolsFramework
     public class VNA : InstrumentInterface
     {
         public static new string name = "M9374A";
-        
+        public enum SaveFormat
+        {
+            AUTO,
+            MA,
+            RI,
+            DB
+        }
         public enum CalcParameter
         {
             OFF,
@@ -243,14 +249,15 @@ namespace SpinWaveToolsFramework
             {
                 var calc = calcs[i];
                 var format = formats[i];
+                var name = calc.ToString() + "_" + format.ToString();
 
                 if (calc == CalcParameter.OFF)
                     continue;
 
-                command += String.Format(":CALC:PAR:EXT '{0}', '{0}';" +
-                                         ":DISP:WIND:TRAC{1}:FEED '{0}';" +
+                command += String.Format(":CALC:PAR:EXT '{0}', '{1}';" +
+                                         ":DISP:WIND:TRAC{2}:FEED '{0}';" +
                                          ":CALC:PAR:SEL '{0}';" +
-                                         ":CALC:FORM {2};", new string[] { calc.ToString(), index.ToString(), format.ToString() });
+                                         ":CALC:FORM {3};", new string[] { name, calc.ToString(), index.ToString(), format.ToString() });
                 index++;
             }
 
@@ -270,8 +277,10 @@ namespace SpinWaveToolsFramework
                 return Trigger.GRO;
             }
         }
-        public void DataSave(string filename)
+        public void DataSave(string filename, string format)
         {
+            if (format != null)
+                Write("MMEM:STOR:TRAC:FORM:SNP " + format);
             Write(String.Format("CALC1:DATA:SNP:PORT:SAVE '1,2','{0}'", filename));
         }
         public string DataFlow(string filename)

@@ -26,12 +26,14 @@ namespace SpinWaveToolsFramework
         {
             Nothing,
             PowerSupply,
-            VNA
+            VNA,
+            Waiting
         }
         public PowerSupply powerSupply = new PowerSupply();
         public VNA vna = new VNA();
         public State state = State.Disable;
         public ProcessState processState = ProcessState.PowerSupply;
+        public int timer = 0;
         public Data data = new Data();
         public string addressPowerSupply;
         public string addressVNA;
@@ -129,7 +131,7 @@ namespace SpinWaveToolsFramework
                     if (state != State.Processing) return;
 
                     string filename = data.filePath + currentField + data.fileExt;
-                    vna.DataSave(filename);
+                    vna.DataSave(filename, data.saveFormat.ToString());
                     vna.OPC();
 
                     if (data.duplicate)
@@ -142,6 +144,21 @@ namespace SpinWaveToolsFramework
                 });
 
                 if (state != State.Processing) return;
+
+                processState = ProcessState.Waiting;
+                timer = data.measure_delay;
+                DateTime delay = DateTime.Now.AddSeconds(timer);
+                powerSupply.OutputSet(false);
+                if (i != stepCount - 1)
+                {
+                    await Task.Run(() =>
+                    {
+                        while (processState == ProcessState.Waiting && timer > 0)
+                        {
+                            timer = (int)(delay - DateTime.Now).TotalSeconds;
+                        }
+                    });
+                }
             }
 
             if (state != State.Processing) return;
@@ -172,8 +189,8 @@ namespace SpinWaveToolsFramework
 
         public class Data
         {
-            public List<VNA.CalcParameter> parameters = new List<VNA.CalcParameter> { VNA.CalcParameter.S11, VNA.CalcParameter.S12, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF};
-            public List<VNA.DataFormat> formats = new List<VNA.DataFormat> { VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG };
+            public List<VNA.CalcParameter> parameters = new List<VNA.CalcParameter> { VNA.CalcParameter.S11, VNA.CalcParameter.S12, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF };
+            public List<VNA.DataFormat> formats = new List<VNA.DataFormat> { VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG };
 
 
             public bool duplicate = true;
@@ -319,7 +336,7 @@ namespace SpinWaveToolsFramework
             {
                 set
                 {
-                    _bandwidth = Math.Max(1, Math.Min(value, 999));
+                    _bandwidth = Math.Max(1, Math.Min(value, 99999));
                 }
                 get
                 {
@@ -331,7 +348,7 @@ namespace SpinWaveToolsFramework
             {
                 set
                 {
-                    _power = power;
+                    _power = Math.Max(value, -43);
                 }
                 get
                 {
@@ -339,6 +356,7 @@ namespace SpinWaveToolsFramework
                 }
             }
             int _power = 0;
+            public VNA.SaveFormat saveFormat = VNA.SaveFormat.RI;
 
             public int reloads
             {
@@ -364,6 +382,8 @@ namespace SpinWaveToolsFramework
                 }
             }
             int _reload_delay = 750;
+
+            public int measure_delay = 30;
 
             private int Clamp(int value, int min, int max)
             {
@@ -399,7 +419,8 @@ namespace SpinWaveToolsFramework
                 data["vna"]["points"] = freq_points.ToString();
                 data["vna"]["bandwidth"] = bandwidth.ToString();
                 data["vna"]["power"] = power.ToString();
-                for(var i = 0; i < 4; i++)
+                data["vna"]["format"] = saveFormat.ToString();
+                for(var i = 0; i < 8; i++)
                 {
                     var parameter = GetParameter(i);
                     data["vna"]["parameter_" + i] = parameter.Key.ToString();
@@ -431,7 +452,8 @@ namespace SpinWaveToolsFramework
                 freq_points = Convert.ToInt32(data["vna"]["points"]);
                 bandwidth = Convert.ToInt32(data["vna"]["bandwidth"]);
                 power = Convert.ToInt32(data["vna"]["power"]);
-                for (var i = 0; i < 4; i++)
+                saveFormat = (VNA.SaveFormat)Enum.Parse(typeof(VNA.SaveFormat), data["vna"]["format"], true);
+                for (var i = 0; i < 8; i++)
                 {
                     var parameter = (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter), data["vna"]["parameter_" + i], true);
                     var format = (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), data["vna"]["format_" + i], true);

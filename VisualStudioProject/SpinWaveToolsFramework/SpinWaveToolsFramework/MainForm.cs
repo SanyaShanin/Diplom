@@ -103,6 +103,8 @@ namespace SpinWaveToolsFramework
                 case "bFileExt":            data.fileExt = text; break;
 
                 case "bDuplicate":          data.duplicate_path = text; break;
+                
+                case "bMeasDelay":          data.measure_delay = ParseInt(text, data.measure_delay); break;
             }
             UpdateData();
         }
@@ -126,6 +128,8 @@ namespace SpinWaveToolsFramework
 
             vnaBand.Text            = measurement.data.bandwidth    .ToString(CultureInfo.InvariantCulture);
             vnaPower.Text           = measurement.data.power        .ToString(CultureInfo.InvariantCulture);
+            
+            bMeasDelay.Text         = measurement.data.measure_delay.ToString(CultureInfo.InvariantCulture);
 
             var value = (int)measurement.data.GetParameter(0).Key;
             sour1   .SelectedIndex  = (int)measurement.data.GetParameter(0).Key;
@@ -139,6 +143,20 @@ namespace SpinWaveToolsFramework
 
             sour4   .SelectedIndex  = (int)measurement.data.GetParameter(3).Key;
             format4 .SelectedIndex  = (int)measurement.data.GetParameter(3).Value;
+
+            sour5.SelectedIndex     = (int)measurement.data.GetParameter(4).Key;
+            format5.SelectedIndex   = (int)measurement.data.GetParameter(4).Value;
+
+            sour6.SelectedIndex     = (int)measurement.data.GetParameter(5).Key;
+            format6.SelectedIndex   = (int)measurement.data.GetParameter(5).Value;
+
+            sour7.SelectedIndex     = (int)measurement.data.GetParameter(6).Key;
+            format7.SelectedIndex   = (int)measurement.data.GetParameter(6).Value;
+
+            sour8.SelectedIndex     = (int)measurement.data.GetParameter(7).Key;
+            format8.SelectedIndex   = (int)measurement.data.GetParameter(7).Value;
+
+            bSaveFormat.SelectedIndex = (int)measurement.data.saveFormat;
 
             bFilePath.Text = measurement.data.filePath;
             bFileExt.Text = measurement.data.fileExt;
@@ -197,7 +215,13 @@ namespace SpinWaveToolsFramework
         private void Start(object sender, EventArgs e)
         {
             if (measurement.state != Measurement.State.Disable)
+            {
+                if (measurement.processState == Measurement.ProcessState.Waiting)
+                {
+                    measurement.processState = Measurement.ProcessState.Waiting;
+                }
                 return;
+            }
 
             Task.Run(() => measurement.Start());
             ProcessHandler();
@@ -237,11 +261,22 @@ namespace SpinWaveToolsFramework
         private async void ProcessHandler()
         {
             OnProcessStart();
+            int c = 0;
             while(measurement.state != Measurement.State.Disable)
             {
                 await Task.Run(() => Thread.Sleep(200));
                 labelState.Text = "State: " + measurement.state.ToString();
-                labelProcessState.Text = "Working With: " + measurement.processState.ToString();
+                labelProcessState.Text = "Current Work: " + measurement.processState.ToString();
+                if (measurement.processState == Measurement.ProcessState.Waiting)
+                {
+                    labelProcessState.Text += ", " + TimeSpan.FromSeconds(measurement.timer).ToString();
+                }
+                c++;
+                if (c > 30)
+                {
+                    c = 0;
+                    updateGraph_Click(0, new EventArgs());
+                }
             }
             OnProcessEnd();
         }
@@ -269,59 +304,94 @@ namespace SpinWaveToolsFramework
             data.SetParameter(1, (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter),sour2.Text, true), (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), format2.Text, true));
             data.SetParameter(2, (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter),sour3.Text, true), (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), format3.Text, true));
             data.SetParameter(3, (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter),sour4.Text, true), (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), format4.Text, true));
+            data.SetParameter(4, (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter),sour5.Text, true), (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), format5.Text, true));
+            data.SetParameter(5, (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter),sour6.Text, true), (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), format6.Text, true));
+            data.SetParameter(6, (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter),sour7.Text, true), (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), format7.Text, true));
+            data.SetParameter(7, (VNA.CalcParameter)Enum.Parse(typeof(VNA.CalcParameter),sour8.Text, true), (VNA.DataFormat)Enum.Parse(typeof(VNA.DataFormat), format8.Text, true));
         }
 
         private async void updateGraph_Click(object sender, EventArgs e)
         {
-            chart1.Series.Clear();
-            chart1.Legends.Clear();
-            for (var i = 0; i < 4; i++)
+            var charts = new System.Windows.Forms.DataVisualization.Charting.Chart[] { chart1, chart2, chart3, chart4 };
+            for (var cnum = 0; cnum < 4; cnum++)
             {
-                var calc = measurement.data.GetParameter(i);
-                if (calc.Key == VNA.CalcParameter.OFF) continue;
-
-                var serie = new System.Windows.Forms.DataVisualization.Charting.Series(calc.Key.ToString());// chart1.Series.Add(calc.Key.ToString());
-                var legend = chart1.Legends.Add(calc.Key.ToString());
-                serie.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-
-                string data;
-                string[] parse = Array.Empty<string>();
-                int it = 0;
-
-                await Task.Run(() =>
+                var chart = charts[cnum];
+                List<string> meas = new List<string>();
+                List<KeyValuePair<VNA.CalcParameter, VNA.DataFormat>> calcs = new List<KeyValuePair<VNA.CalcParameter, VNA.DataFormat>>();
+                chart.Legends.Clear();
+                chart.Series.Clear();
+                chart.Titles.Clear();
+                string title = "";
+                for(var i = cnum * 2; i < cnum * 2 + 2; i++)
                 {
-                    if (measurement.vna.IsOpen)
+                    var cmeas = measurement.data.GetParameter(i);
+                    meas.Add(cmeas.Key.ToString() + "_" + cmeas.Value.ToString());
+                    calcs.Add(cmeas);
+                    title += cmeas + ", ";
+                }
+                chart.Titles.Add(title);
+                /*for(var i = 0; i < chart.Legends.Count; i++)
+                {
+                    var legend = chart.Legends[i];
+                    if (meas.IndexOf(legend.Name) < 0)
                     {
-                        measurement.vna.SelectMeasurement(calc.Key.ToString());
-                        data = measurement.vna.MeasurementGetData();
+                        chart.Legends.RemoveAt(i);
+
+                        i--;
                     }
-                    else
+                }*/
+                for (var i = 0; i < meas.Count; i++)
+                {
+                    try
                     {
-                        data = "";
-                        var r = new Random(DateTime.Now.Millisecond);
-                        for (var j = 0; j < 8001; j++)
+                        var calc = calcs[i];
+                        if (calc.Key == VNA.CalcParameter.OFF) continue;
+                        var cmeas = meas[i];
+
+                        var serie = new System.Windows.Forms.DataVisualization.Charting.Series(i.ToString() + " " + calc.Key.ToString() + " " + calc.Value.ToString());// chart1.Series.Add(calc.Key.ToString());
+                                                                                                                                                                       //var legend = chart1.Legends.Add(i.ToString() + " " + calc.Key.ToString() + " " + calc.Value.ToString());
+                        serie.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+
+                        string data;
+                        string[] parse = Array.Empty<string>();
+                        int it = 0;
+
+                        await Task.Run(() =>
                         {
-                            data += (r.NextDouble() * 10 + i*100).ToString() + ",";
-                        }
+                            if (measurement.vna.IsOpen)
+                            {
+                                measurement.vna.SelectMeasurement(cmeas);
+                                data = measurement.vna.MeasurementGetData();
+                            }
+                            else
+                            {
+                                data = "";
+                                var r = new Random(DateTime.Now.Millisecond);
+                                for (var j = 0; j < 8001; j++)
+                                {
+                                    data += (r.NextDouble() * 10 + i * 100).ToString() + ",";
+                                }
+                            }
+                            parse = data.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        });
+
+                        await Task.Run(() =>
+                        {
+                            foreach (var point in parse)
+                            {
+                                var cpoint = point;
+                                var provider = CultureInfo.CreateSpecificCulture("en-GB");
+                                if (cpoint[0] == '+') cpoint = point.Remove(0, 1);
+                                var value = Double.Parse(cpoint, NumberStyles.Float, provider);
+                                serie.Points.Add(new System.Windows.Forms.DataVisualization.Charting.DataPoint(it/*(int)((double)it / (double)parse.Length * measurement.data.freq_end + measurement.data.freq_start)*/, value));
+                                it++;
+                            }
+                        });
+
+                        chart.Series.Add(serie);
                     }
-                    parse = data.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    File.WriteAllText("data.txt", data);
-                    File.WriteAllText("parse.txt", String.Join("\n", parse.ToArray().ToArray()));
-                });
-
-                await Task.Run(() =>
-                {
-                    foreach (var point in parse)
-                    {
-                        var provider = CultureInfo.CreateSpecificCulture("en-GB");
-                        var value = Double.Parse(point, NumberStyles.Float, provider);
-                        serie.Points.Add(new System.Windows.Forms.DataVisualization.Charting.DataPoint(it, value));
-                        it++;
-                    }
-                });
-
-                chart1.Series.Add(serie);
+                    catch { }
+                }
             }
         }
 
@@ -372,6 +442,15 @@ namespace SpinWaveToolsFramework
             }
 
             dialog.Dispose();
+        }
+
+        private void bSaveFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!sendEvent) return;
+
+            var data = measurement.data;
+            var value = (sender as ComboBox).SelectedIndex;
+            data.saveFormat = (VNA.SaveFormat)value;
         }
     }
 }
