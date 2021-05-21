@@ -167,10 +167,18 @@ namespace SpinWaveToolsFramework
 
             if (state != State.Processing) return;
 
+            processState = ProcessState.Nothing;
             if (files.Count > 1 && data.MakeCorVersion) {
+                state = State.Analysis;
                 for (var i = 0; i < files.Count; i++)
                 {
-                    string A = files[i], B = files[i > files.Count/2 ? 0 : files.Count - 1];
+                    string  A = files[i], 
+                            B = files[i > files.Count/2 ? 0 : files.Count - 1];
+                    try
+                    {
+                        MathWorker.DoWork(A, B, A + "_cor", "!Operation: " + A + " - " + B + "\n");
+                    }
+                    catch { }
                 }
             }
             await End();
@@ -442,6 +450,7 @@ namespace SpinWaveToolsFramework
                 data["settings"]["ext"] = fileExt;
                 data["settings"]["duplicate"] = duplicate ? "on" : "off";
                 data["settings"]["duplicate_path"] = duplicate_path;
+                data["settings"]["make_cor"] = MakeCorVersion ? "on" : "off";
                 File.WriteAllText(file, data.ToString());
             }
             public void Load(string file)
@@ -475,6 +484,7 @@ namespace SpinWaveToolsFramework
                 fileExt = data["settings"]["ext"];
                 duplicate = data["settings"]["duplicate"] == "on";
                 duplicate_path = data["settings"]["duplicate_path"];
+                MakeCorVersion = data["settings"]["make_cor"] == "on";
             }
         }
     }

@@ -35,7 +35,15 @@ namespace SpinWaveToolsFramework
         private void Form1_Load(object sender, EventArgs e)
         {
             CheckInstruments();
-            StatusUpdater();
+            //StatusUpdater();
+            if (File.Exists("default.ini"))
+            {
+                try
+                {
+                    measurement.data.Load("default.ini");
+                }
+                catch { }
+            }
             UpdateData();
         }
         private void address_power_supply_TextChanged(object sender, EventArgs e)
@@ -175,6 +183,8 @@ namespace SpinWaveToolsFramework
             cDuplicate.Checked = measurement.data.duplicate;
             bDuplicatePath.Text = measurement.data.duplicate_path;
 
+            cMakeCor.Checked = measurement.data.MakeCorVersion;
+
             sendEvent = true;
         }
         private async void CheckInstruments()
@@ -198,10 +208,14 @@ namespace SpinWaveToolsFramework
             while (true)
             {
                 await Task.Run(() => Thread.Sleep(500));
-                var status = await PowerSupplyUpdate();
-                powerSupplyCurrent.Text = "Current: " + status[0] + " (A)";
-                powerSupplyVoltage.Text = "Voltage: " + status[1] + " (V)";
-                powerSupplyOutput.Text = "Output: " + status[2];
+                try
+                {
+                    var status = await PowerSupplyUpdate();
+                    powerSupplyCurrent.Text = "Current: " + status[0] + " (A)";
+                    powerSupplyVoltage.Text = "Voltage: " + status[1] + " (V)";
+                    powerSupplyOutput.Text = "Output: " + status[2];
+                }
+                catch { }
             }
         }
         private async Task<List<string>> PowerSupplyUpdate()
@@ -270,22 +284,28 @@ namespace SpinWaveToolsFramework
         }
         private async void ProcessHandler()
         {
-            OnProcessStart();
-            int c = 0;
+            try { OnProcessStart(); } catch (Exception e) { MessageBox.Show(e.Message); }
+            int c = 20;
+            Thread.Sleep(100);
             while(measurement.state != Measurement.State.Disable)
             {
                 await Task.Run(() => Thread.Sleep(200));
                 labelState.Text = "State: " + measurement.state.ToString();
-                labelProcessState.Text = "Current Work: " + measurement.processState.ToString();
-                if (measurement.processState == Measurement.ProcessState.Waiting)
-                {
-                    labelProcessState.Text += ", " + TimeSpan.FromSeconds(measurement.timer).ToString();
-                }
+                labelProcessState.Text = "Current Work: " + measurement.processState.ToString() + (measurement.processState == Measurement.ProcessState.Waiting ? ", " + TimeSpan.FromSeconds(measurement.timer).ToString() : "");
+                var status = await PowerSupplyUpdate();
+                powerSupplyCurrent.Text = "Current: " + status[0] + " (A)";
+                powerSupplyVoltage.Text = "Voltage: " + status[1] + " (V)";
+                powerSupplyOutput.Text = "Output: " + status[2];
+
                 c++;
-                if (c > 30)
+                if (c > 35)
                 {
                     c = 0;
-                    updateGraph_Click(0, new EventArgs());
+                    try
+                    {
+                        updateGraph_Click(0, new EventArgs());
+                    }
+                    catch (Exception e) { MessageBox.Show(e.Message); }
                 }
             }
             OnProcessEnd();
@@ -415,7 +435,16 @@ namespace SpinWaveToolsFramework
 
         private void setDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            measurement.data = new Measurement.Data();
+            if (File.Exists("default.ini"))
+            {
+                try
+                {
+                    measurement.data.Load("default.ini");
+                }
+                catch { }
+            }
+            else
+                measurement.data = new Measurement.Data();
             UpdateData();
         }
 
@@ -461,6 +490,17 @@ namespace SpinWaveToolsFramework
             var data = measurement.data;
             var value = (sender as ComboBox).SelectedIndex;
             data.saveFormat = (VNA.SaveFormat)value;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!sendEvent) return;
+            measurement.data.MakeCorVersion = (sender as CheckBox).Checked;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("SpinWaveTool\nAutor - Alexandr Shanin, bELNE41, 2021\nspecial thanks to the employees of the Saratov Branch of the V. A. Kotelnikov Institute of Radio Engineering and Electronics of the Russian Academy of Sciences!");
         }
     }
 }

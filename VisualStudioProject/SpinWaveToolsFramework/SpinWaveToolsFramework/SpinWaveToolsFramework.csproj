@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MathWorker.cs" />
     <Compile Include="InstrumentConnection.cs" />
     <Compile Include="Instruments.cs" />
     <Compile Include="MainForm.cs">
