@@ -19,8 +19,19 @@ namespace SpinWaveToolsFramework
         public MainForm()
         {
             InitializeComponent();
+            instance = this;
         }
-
+        public static MainForm instance;
+        public void Log(string message)
+        {
+            string all = "";
+            if (File.Exists("logger.txt"))
+            {
+                all = File.ReadAllText("logger.txt");
+            }
+            all += "\n" + message;
+            File.WriteAllText("logger.txt", all);
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             CheckInstruments();
@@ -222,7 +233,6 @@ namespace SpinWaveToolsFramework
                 }
                 return;
             }
-
             Task.Run(() => measurement.Start());
             ProcessHandler();
         }

@@ -20,6 +20,7 @@ namespace SpinWaveToolsFramework
             Connecting,
             Starting,
             Processing,
+            Analysis,
             Ending
         }
         public enum ProcessState
@@ -105,6 +106,8 @@ namespace SpinWaveToolsFramework
         private async void Process()
         {
             int stepCount = powerSupply.IsOpen ? data.field_points : 1;
+            List<string> files = new List<string>();
+
             for(var i = 0; i < stepCount; i++)
             {
                 double currentField = powerSupply.IsOpen ? data.field_start + data.field_step * i : 0;
@@ -140,6 +143,7 @@ namespace SpinWaveToolsFramework
                         string name = Path.GetFileName(filename);
                         string newname = data.duplicate_path + name;
                         File.WriteAllText(newname, content);
+                        files.Add(newname);
                     }
                 });
 
@@ -163,6 +167,12 @@ namespace SpinWaveToolsFramework
 
             if (state != State.Processing) return;
 
+            if (files.Count > 1 && data.MakeCorVersion) {
+                for (var i = 0; i < files.Count; i++)
+                {
+                    string A = files[i], B = files[i > files.Count/2 ? 0 : files.Count - 1];
+                }
+            }
             await End();
         }
         public async Task End()
@@ -192,6 +202,7 @@ namespace SpinWaveToolsFramework
             public List<VNA.CalcParameter> parameters = new List<VNA.CalcParameter> { VNA.CalcParameter.S11, VNA.CalcParameter.S12, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF, VNA.CalcParameter.OFF };
             public List<VNA.DataFormat> formats = new List<VNA.DataFormat> { VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG, VNA.DataFormat.MLOG };
 
+            public bool MakeCorVersion = false;
 
             public bool duplicate = true;
             public string duplicate_path = "D:/Measurements/";

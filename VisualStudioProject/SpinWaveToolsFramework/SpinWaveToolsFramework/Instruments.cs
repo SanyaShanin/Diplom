@@ -215,6 +215,7 @@ namespace SpinWaveToolsFramework
         {
             var connect = new Hislip();
             connect.Open(host);
+            (connect as Hislip).PrintHandler += (m) => { MainForm.instance.Log(m); };
             return connect;
         }
         public void SetSelectedMeasurement()

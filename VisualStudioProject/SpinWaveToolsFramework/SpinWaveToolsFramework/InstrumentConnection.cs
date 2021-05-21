@@ -65,14 +65,21 @@ namespace SpinWaveToolsFramework
             //FieldFox Programming Guide 6
             CheckOpen();
 
-            while (busy) { };
+            DateTime time = DateTime.Now.AddSeconds(3);
+            while (busy) { if (time < DateTime.Now) break; };
 
             busy = true;
-            byte[] bytes = System.Text.ASCIIEncoding.ASCII.GetBytes(str);
-            m_Stream.Write(bytes, 0, bytes.Length);
-            WriteTerminator();
-            if (str.IndexOf('?') >= 0 && callback != null)
-                callback(Read());
+            try
+            {
+                byte[] bytes = System.Text.ASCIIEncoding.ASCII.GetBytes(str);
+                m_Stream.Write(bytes, 0, bytes.Length);
+                WriteTerminator();
+                if (str.IndexOf('?') >= 0 && callback != null)
+                    callback(Read());
+            } catch(Exception e)
+            {
+                MessageBox.Show("An error: " + e.Message + "\nIt will not stop the programm, but it's better to restart measurements manually");
+            }
             busy = false;
         }
         public async void WriteAsync(string str, Action<string> callback = null)

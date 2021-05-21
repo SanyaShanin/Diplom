@@ -1,0 +1,13 @@
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\bin\Release\SpinWaveToolsFramework.exe.config
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\bin\Release\SpinWaveToolsFramework.exe
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\bin\Release\SpinWaveToolsFramework.pdb
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\bin\Release\INIFileParser.dll
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\bin\Release\INIFileParser.xml
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Release\SpinWaveToolsFramework.csprojAssemblyReference.cache
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Release\SpinWaveToolsFramework.MainForm.resources
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Release\SpinWaveToolsFramework.Properties.Resources.resources
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Release\SpinWaveToolsFramework.csproj.GenerateResource.cache
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Release\SpinWaveToolsFramework.csproj.CoreCompileInputs.cache
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Release\SpinWaveToolsFramework.csproj.CopyComplete
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Release\SpinWaveToolsFramework.exe
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Release\SpinWaveToolsFramework.pdb

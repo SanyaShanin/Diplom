@@ -1,0 +1,7 @@
+D:\Учоба\диплом\VisualStudioProject\MathWork\MathWork\bin\Debug\MathWork.exe.config
+D:\Учоба\диплом\VisualStudioProject\MathWork\MathWork\bin\Debug\MathWork.exe
+D:\Учоба\диплом\VisualStudioProject\MathWork\MathWork\bin\Debug\MathWork.pdb
+D:\Учоба\диплом\VisualStudioProject\MathWork\MathWork\obj\Debug\MathWork.csprojAssemblyReference.cache
+D:\Учоба\диплом\VisualStudioProject\MathWork\MathWork\obj\Debug\MathWork.csproj.CoreCompileInputs.cache
+D:\Учоба\диплом\VisualStudioProject\MathWork\MathWork\obj\Debug\MathWork.exe
+D:\Учоба\диплом\VisualStudioProject\MathWork\MathWork\obj\Debug\MathWork.pdb
