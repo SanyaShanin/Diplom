@@ -45,6 +45,7 @@ namespace SpinWaveToolsFramework
                 catch { }
             }
             UpdateData();
+            pictureBox1.Visible = false;
         }
         private void address_power_supply_TextChanged(object sender, EventArgs e)
         {
@@ -270,6 +271,7 @@ namespace SpinWaveToolsFramework
             }
             tabControl1.TabPages[4].Select();
             menuMain.Enabled = true;
+            pictureBox1.Visible = false;
         }
         private void OnProcessEnd()
         {
@@ -281,6 +283,7 @@ namespace SpinWaveToolsFramework
                 }
             }
             button_start.Enabled = true;
+            pictureBox1.Visible = true;
         }
         private async void ProcessHandler()
         {
@@ -501,6 +504,11 @@ namespace SpinWaveToolsFramework
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("SpinWaveTool\nAutor - Alexandr Shanin, bELNE41, 2021\nspecial thanks to the employees of the Saratov Branch of the V. A. Kotelnikov Institute of Radio Engineering and Electronics of the Russian Academy of Sciences!");
+        }
+
+        private void makeComparsionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ComparsionBuilder().Show();
         }
     }
 }

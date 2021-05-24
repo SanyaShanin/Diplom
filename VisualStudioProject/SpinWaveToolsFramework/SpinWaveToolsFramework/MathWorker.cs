@@ -10,7 +10,11 @@ namespace SpinWaveToolsFramework
 {
     class MathWorker
     {
-        static public void DoWork(double[][] A, double[][] B, string filename, string comment = "")
+        static public void DoWork(string A, string B, string filename, string comment)
+        {
+            DoWork(ReadFile(A), ReadFile(B), filename, comment);
+        }
+        static public void DoWork(double[][] A, double[][] B, string filename, string comment)
         {
             double[] rS11 = new double[A.Length],
                      iS11 = new double[A.Length],
@@ -130,29 +134,54 @@ namespace SpinWaveToolsFramework
                 textoutput += "\n" + f[i].ToString(CultureInfo.InvariantCulture) + "\t" + S21mod[i].ToString(CultureInfo.InvariantCulture) + "\t" + S21ph[i].ToString(CultureInfo.InvariantCulture) + "\t" + S21phc[i].ToString(CultureInfo.InvariantCulture) + "\t" + S21cph[i].ToString(CultureInfo.InvariantCulture) + "\t" + S21cphc[i].ToString(CultureInfo.InvariantCulture) + "\t" + S12mod[i].ToString(CultureInfo.InvariantCulture) + "\t" + S12ph[i].ToString(CultureInfo.InvariantCulture) + "\t" + S12phc[i].ToString(CultureInfo.InvariantCulture) + "\t" + S12cph[i].ToString(CultureInfo.InvariantCulture) + "\t" + S12cphc[i].ToString(CultureInfo.InvariantCulture);
             }
 
-            string output = comment + "Frequency \t |S21| \t Phase(S21) \t ExtPhase(S21) \t CorPhase(S21)\t ExtCorPhase(S21)\t |S12| \t Phase(S12)\t ExtPhase(S12) \t CorPhase(S12)\t ExtCorPhase(S12)\n" +
+            string output = comment + 
+                            "Frequency \t |S21| \t Phase(S21) \t ExtPhase(S21) \t CorPhase(S21)\t ExtCorPhase(S21)\t |S12| \t Phase(S12)\t ExtPhase(S12) \t CorPhase(S12)\t ExtCorPhase(S12)\n" +
                             "GHz \t dB \t deg \t deg \t deg\t deg\t dB \t deg \t deg \t deg\t deg" +
                             textoutput;
 
             File.WriteAllText(filename, output);
         }
-        static public void DoWork(string A, string B, string filename, string comment = "")
+
+        static public void Merge(string[] files, int row, string savefile, int offset = 2)
         {
-            var dataA = ReadFile(A);
-            var dataB = ReadFile(B);
-            DoWork(dataA, dataB, filename, comment);
+            double[][][] datas = new double[files.Length][][];
+
+            string output = "Frequency\t";
+            for (var i = 0; i < files.Length; i++)
+            {
+                datas[i] = ReadFile(files[i], offset);
+                output += Path.GetFileName(files[i]) + "\t";
+            }
+            output += "\n";
+
+            for (var i = 0; i < datas[0].Length; i++)
+            {
+                string[] line = new string[files.Length + 1];
+                for (var j = 0; j < files.Length; j++)
+                {
+                    line[j + 1] = datas[j][i][row].ToString(CultureInfo.InvariantCulture);
+                }
+                line[0] = (datas[0][i][0]).ToString(CultureInfo.InvariantCulture);
+                output += string.Join("\t", line) + "\n";
+            }
+
+            output = "" +
+                     output;
+
+            File.WriteAllText(savefile, output);
         }
+
         static public double[][] ReadFile(string filename, int offset = 8)
         {
             string[] lines;
             var content = File.ReadAllText(filename);
             lines = content.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             int index = 0;
-            double[][] data = new double[lines.Length - 8][];
+            double[][] data = new double[lines.Length - offset][];
             for (var i = offset; i < lines.Length; i++)
             {
                 var line = lines[i];
-                var rawline = line.Split(' ');
+                var rawline = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 var rawdata = new double[rawline.Length];
                 for (var j = 0; j < rawdata.Length; j++)
                 {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace MathWork
 {
@@ -12,26 +13,66 @@ namespace MathWork
     {
         static void Main(string[] args)
         {
-            string file0 = "";
-            string file1 = "";
-            double[][] data0 = new double[][] { };
-            double[][] data1 = new double[][] { };
-            
-            Console.WriteLine("Input source file: ");
-            file0 = Console.ReadLine();
-            Console.WriteLine("Input data file: ");
-            file1 = Console.ReadLine();
+            Merge();
+        }
 
-            if (!File.Exists(file0) || !File.Exists(file1))
+        static void Merge()
+        {
+            Console.Write("Input directory: ");
+            string dir = Console.ReadLine();
+            Console.Write("Input regular expression filter: ");
+            string regex = Console.ReadLine();
+            Console.Write("Input output file: ");
+            string name = Console.ReadLine();
+            Console.Write("Input row index: ");
+            int row = int.Parse(Console.ReadLine());
+
+            Regex reg = new Regex(regex);
+            List<string> filesList = new List<string>();
+            DirSearch(dir, filesList);
+            for(var i = 0; i < filesList.Count; i++)
             {
-                Console.WriteLine("Invalid file or files!");
-                return;
+                if (!reg.IsMatch(filesList[i]))
+                {
+                    filesList.RemoveAt(i);
+                    i--;
+                }
             }
 
-            data0 = MathWorker.ReadFile(file0);
-            data1 = MathWorker.ReadFile(file1);
+            var files = filesList.ToArray();
+            MathWorker.Merge(files, row, name);
+        }
 
-            MathWorker.DoWork(data0, data1, "output.txt");
+        static void Rename()
+        {
+            string dir = Console.ReadLine();
+            foreach (var file in Directory.GetFiles(dir))
+            {
+                int index = file.IndexOf(".s2p");
+                if (index < 0)
+                    continue;
+
+                var symb = file[index - 2];
+                if (symb != '.')
+                {
+                    string newname = file.Remove(index) + ".0.s2p";
+                    if (!File.Exists(newname))
+                        File.Move(file, newname);
+                    Console.WriteLine(newname);
+                }
+            }
+        }
+
+        static void DirSearch(string sDir, List<string> list)
+        {
+            foreach (string d in Directory.GetDirectories(sDir))
+            {
+                foreach (string f in Directory.GetFiles(d))
+                {
+                    list.Add(f);
+                }
+                DirSearch(d, list);
+            }
         }
     }
 }

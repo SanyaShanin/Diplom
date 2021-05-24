@@ -11,3 +11,4 @@ D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveTo
 D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Debug\SpinWaveToolsFramework.csproj.CopyComplete
 D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Debug\SpinWaveToolsFramework.exe
 D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Debug\SpinWaveToolsFramework.pdb
+D:\Учоба\диплом\VisualStudioProject\SpinWaveToolsFramework\SpinWaveToolsFramework\obj\Debug\SpinWaveToolsFramework.ComparsionBuilder.resources

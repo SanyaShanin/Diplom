@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
@@ -133,7 +134,7 @@ namespace SpinWaveToolsFramework
 
                     if (state != State.Processing) return;
 
-                    string filename = data.filePath + currentField + data.fileExt;
+                    string filename = GetMeasurementName(data.filePath, data.fileExt, currentField);
                     vna.DataSave(filename, data.saveFormat.ToString());
                     vna.OPC();
 
@@ -142,7 +143,7 @@ namespace SpinWaveToolsFramework
                         string content = vna.DataFlow(filename);
                         string name = Path.GetFileName(filename);
                         string newname = data.duplicate_path + name;
-                        File.WriteAllText(newname, content);
+                        SaveLocal(data.duplicate_path, name, content);
                         files.Add(newname);
                     }
                 });
@@ -176,7 +177,7 @@ namespace SpinWaveToolsFramework
                             B = files[i > files.Count/2 ? 0 : files.Count - 1];
                     try
                     {
-                        MathWorker.DoWork(A, B, A + "_cor", "!Operation: " + A + " - " + B + "\n");
+                        MathWorker.DoWork(A, B, A + "_cor", "!Operation: " + A + " - " + B + "\r\n");
                     }
                     catch { }
                 }
@@ -198,7 +199,38 @@ namespace SpinWaveToolsFramework
 
             state = State.Disable;
         }
+        string GetMeasurementName(string filename, string extension, double power)
+        {
+            string powerValue = power.ToString(CultureInfo.InvariantCulture);
+            
+            bool addpoint = false;
+            if (powerValue.Length == 1)
+                addpoint = true;
+            else if (powerValue[powerValue.Length - 2] != '.')
+                addpoint = true;
 
+            if (addpoint) powerValue += ".0";
+
+            if (filename.Contains("{I}"))
+            {
+                filename = filename.Replace("{I}", powerValue);
+            } else
+            {
+                filename += powerValue;
+            }
+
+            filename += extension;
+            return filename;
+        }
+        void SaveLocal(string location, string name, string content)
+        {
+            if (!Directory.Exists(location))
+            {
+                Directory.CreateDirectory(location);
+            }
+
+            File.WriteAllText(location + name, content);
+        }
         public void Dispose()
         {
             vna?.Dispose();

@@ -29,18 +29,18 @@ namespace SpinWaveToolsFramework
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend13 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend14 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend15 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend16 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.address = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -115,6 +115,7 @@ namespace SpinWaveToolsFramework
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.settings = new System.Windows.Forms.TabPage();
+            this.cMakeCor = new System.Windows.Forms.CheckBox();
             this.label31 = new System.Windows.Forms.Label();
             this.bSaveFormat = new System.Windows.Forms.ComboBox();
             this.cDuplicate = new System.Windows.Forms.CheckBox();
@@ -126,13 +127,10 @@ namespace SpinWaveToolsFramework
             this.label23 = new System.Windows.Forms.Label();
             this.process = new System.Windows.Forms.TabPage();
             this.updateGraph = new System.Windows.Forms.Button();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.lTrigger = new System.Windows.Forms.Label();
             this.labelProcessState = new System.Windows.Forms.Label();
             this.labelState = new System.Windows.Forms.Label();
             this.button_stop = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.powerSupplyStatus = new System.Windows.Forms.Label();
             this.powerSupplyOutput = new System.Windows.Forms.Label();
             this.powerSupplyVoltage = new System.Windows.Forms.Label();
             this.powerSupplyCurrent = new System.Windows.Forms.Label();
@@ -143,15 +141,17 @@ namespace SpinWaveToolsFramework
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.setDefaultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.cMakeCor = new System.Windows.Forms.CheckBox();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.analisysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.makeComparsionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.address.SuspendLayout();
             this.power_supply.SuspendLayout();
@@ -164,7 +164,6 @@ namespace SpinWaveToolsFramework
             this.groupBox5.SuspendLayout();
             this.settings.SuspendLayout();
             this.process.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -173,6 +172,7 @@ namespace SpinWaveToolsFramework
             ((System.ComponentModel.ISupportInitialize)(this.chart4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -212,7 +212,7 @@ namespace SpinWaveToolsFramework
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(7, 508);
+            this.button1.Location = new System.Drawing.Point(7, 512);
             this.button1.Name = "button1";
             this.button1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.button1.Size = new System.Drawing.Size(248, 47);
@@ -1132,6 +1132,17 @@ namespace SpinWaveToolsFramework
             this.settings.Text = "Settings";
             this.settings.UseVisualStyleBackColor = true;
             // 
+            // cMakeCor
+            // 
+            this.cMakeCor.AutoSize = true;
+            this.cMakeCor.Location = new System.Drawing.Point(8, 229);
+            this.cMakeCor.Name = "cMakeCor";
+            this.cMakeCor.Size = new System.Drawing.Size(158, 19);
+            this.cMakeCor.TabIndex = 11;
+            this.cMakeCor.Text = "Make correction versions";
+            this.cMakeCor.UseVisualStyleBackColor = true;
+            this.cMakeCor.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // label31
             // 
             this.label31.AutoSize = true;
@@ -1222,8 +1233,8 @@ namespace SpinWaveToolsFramework
             // 
             // process
             // 
+            this.process.Controls.Add(this.pictureBox1);
             this.process.Controls.Add(this.updateGraph);
-            this.process.Controls.Add(this.groupBox8);
             this.process.Controls.Add(this.labelProcessState);
             this.process.Controls.Add(this.labelState);
             this.process.Controls.Add(this.button_stop);
@@ -1242,30 +1253,11 @@ namespace SpinWaveToolsFramework
             | System.Windows.Forms.AnchorStyles.Right)));
             this.updateGraph.Location = new System.Drawing.Point(4, 517);
             this.updateGraph.Name = "updateGraph";
-            this.updateGraph.Size = new System.Drawing.Size(241, 30);
+            this.updateGraph.Size = new System.Drawing.Size(251, 30);
             this.updateGraph.TabIndex = 7;
             this.updateGraph.Text = "Update Graph";
             this.updateGraph.UseVisualStyleBackColor = true;
             this.updateGraph.Click += new System.EventHandler(this.updateGraph_Click);
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.lTrigger);
-            this.groupBox8.Location = new System.Drawing.Point(4, 244);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(241, 114);
-            this.groupBox8.TabIndex = 6;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Vector Network Analyzer, M9374A";
-            // 
-            // lTrigger
-            // 
-            this.lTrigger.AutoSize = true;
-            this.lTrigger.Location = new System.Drawing.Point(6, 28);
-            this.lTrigger.Name = "lTrigger";
-            this.lTrigger.Size = new System.Drawing.Size(46, 15);
-            this.lTrigger.TabIndex = 0;
-            this.lTrigger.Text = "Trigger:";
             // 
             // labelProcessState
             // 
@@ -1298,30 +1290,20 @@ namespace SpinWaveToolsFramework
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.powerSupplyStatus);
             this.groupBox1.Controls.Add(this.powerSupplyOutput);
             this.groupBox1.Controls.Add(this.powerSupplyVoltage);
             this.groupBox1.Controls.Add(this.powerSupplyCurrent);
             this.groupBox1.Location = new System.Drawing.Point(4, 116);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(241, 123);
+            this.groupBox1.Size = new System.Drawing.Size(251, 86);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Power Supply, N6745A";
             // 
-            // powerSupplyStatus
-            // 
-            this.powerSupplyStatus.AutoSize = true;
-            this.powerSupplyStatus.Location = new System.Drawing.Point(6, 19);
-            this.powerSupplyStatus.Name = "powerSupplyStatus";
-            this.powerSupplyStatus.Size = new System.Drawing.Size(42, 15);
-            this.powerSupplyStatus.TabIndex = 3;
-            this.powerSupplyStatus.Text = "Status:";
-            // 
             // powerSupplyOutput
             // 
             this.powerSupplyOutput.AutoSize = true;
-            this.powerSupplyOutput.Location = new System.Drawing.Point(6, 88);
+            this.powerSupplyOutput.Location = new System.Drawing.Point(6, 61);
             this.powerSupplyOutput.Name = "powerSupplyOutput";
             this.powerSupplyOutput.Size = new System.Drawing.Size(48, 15);
             this.powerSupplyOutput.TabIndex = 2;
@@ -1330,7 +1312,7 @@ namespace SpinWaveToolsFramework
             // powerSupplyVoltage
             // 
             this.powerSupplyVoltage.AutoSize = true;
-            this.powerSupplyVoltage.Location = new System.Drawing.Point(6, 70);
+            this.powerSupplyVoltage.Location = new System.Drawing.Point(6, 43);
             this.powerSupplyVoltage.Name = "powerSupplyVoltage";
             this.powerSupplyVoltage.Size = new System.Drawing.Size(49, 15);
             this.powerSupplyVoltage.TabIndex = 1;
@@ -1339,7 +1321,7 @@ namespace SpinWaveToolsFramework
             // powerSupplyCurrent
             // 
             this.powerSupplyCurrent.AutoSize = true;
-            this.powerSupplyCurrent.Location = new System.Drawing.Point(6, 51);
+            this.powerSupplyCurrent.Location = new System.Drawing.Point(6, 24);
             this.powerSupplyCurrent.Name = "powerSupplyCurrent";
             this.powerSupplyCurrent.Size = new System.Drawing.Size(50, 15);
             this.powerSupplyCurrent.TabIndex = 0;
@@ -1359,6 +1341,7 @@ namespace SpinWaveToolsFramework
             // 
             this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
+            this.analisysToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
@@ -1403,33 +1386,49 @@ namespace SpinWaveToolsFramework
             this.setDefaultsToolStripMenuItem.Text = "Set Defaults";
             this.setDefaultsToolStripMenuItem.Click += new System.EventHandler(this.setDefaultsToolStripMenuItem_Click);
             // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // chart1
             // 
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
-            chartArea13.AxisX.LineColor = System.Drawing.Color.DimGray;
-            chartArea13.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea13.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea13.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea13.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
-            chartArea13.AxisY2.LineColor = System.Drawing.Color.DimGray;
-            chartArea13.BorderColor = System.Drawing.Color.Gainsboro;
-            chartArea13.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea13.BorderWidth = 3;
-            chartArea13.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea13);
+            chartArea5.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea5.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea5.AxisX.Title = "Point index";
+            chartArea5.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea5.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea5.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea5.AxisY2.LineColor = System.Drawing.Color.DimGray;
+            chartArea5.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea5.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea5.BorderWidth = 3;
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
             this.chart1.IsSoftShadows = false;
-            legend13.Name = "Legend1";
-            this.chart1.Legends.Add(legend13);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
-            series13.ChartArea = "ChartArea1";
-            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series13.Legend = "Legend1";
-            series13.Name = "Series1";
-            this.chart1.Series.Add(series13);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.chart1.Series.Add(series5);
             this.chart1.Size = new System.Drawing.Size(384, 267);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "schart";
@@ -1474,27 +1473,28 @@ namespace SpinWaveToolsFramework
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart4.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
-            chartArea14.AxisX.LineColor = System.Drawing.Color.DimGray;
-            chartArea14.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea14.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea14.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea14.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
-            chartArea14.AxisY2.LineColor = System.Drawing.Color.DimGray;
-            chartArea14.BorderColor = System.Drawing.Color.Gainsboro;
-            chartArea14.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea14.BorderWidth = 3;
-            chartArea14.Name = "ChartArea1";
-            this.chart4.ChartAreas.Add(chartArea14);
+            chartArea6.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea6.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea6.AxisX.Title = "Point index";
+            chartArea6.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea6.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea6.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea6.AxisY2.LineColor = System.Drawing.Color.DimGray;
+            chartArea6.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea6.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea6.BorderWidth = 3;
+            chartArea6.Name = "ChartArea1";
+            this.chart4.ChartAreas.Add(chartArea6);
             this.chart4.IsSoftShadows = false;
-            legend14.Name = "Legend1";
-            this.chart4.Legends.Add(legend14);
+            legend6.Name = "Legend1";
+            this.chart4.Legends.Add(legend6);
             this.chart4.Location = new System.Drawing.Point(393, 276);
             this.chart4.Name = "chart4";
-            series14.ChartArea = "ChartArea1";
-            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series14.Legend = "Legend1";
-            series14.Name = "Series1";
-            this.chart4.Series.Add(series14);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chart4.Series.Add(series6);
             this.chart4.Size = new System.Drawing.Size(384, 268);
             this.chart4.TabIndex = 6;
             this.chart4.Text = "chart4";
@@ -1506,27 +1506,28 @@ namespace SpinWaveToolsFramework
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart3.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
-            chartArea15.AxisX.LineColor = System.Drawing.Color.DimGray;
-            chartArea15.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea15.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea15.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea15.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
-            chartArea15.AxisY2.LineColor = System.Drawing.Color.DimGray;
-            chartArea15.BorderColor = System.Drawing.Color.Gainsboro;
-            chartArea15.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea15.BorderWidth = 3;
-            chartArea15.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea15);
+            chartArea7.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea7.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea7.AxisX.Title = "Point index";
+            chartArea7.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea7.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea7.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea7.AxisY2.LineColor = System.Drawing.Color.DimGray;
+            chartArea7.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea7.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea7.BorderWidth = 3;
+            chartArea7.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea7);
             this.chart3.IsSoftShadows = false;
-            legend15.Name = "Legend1";
-            this.chart3.Legends.Add(legend15);
+            legend7.Name = "Legend1";
+            this.chart3.Legends.Add(legend7);
             this.chart3.Location = new System.Drawing.Point(3, 276);
             this.chart3.Name = "chart3";
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series15.Legend = "Legend1";
-            series15.Name = "Series1";
-            this.chart3.Series.Add(series15);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.chart3.Series.Add(series7);
             this.chart3.Size = new System.Drawing.Size(384, 268);
             this.chart3.TabIndex = 5;
             this.chart3.Text = "chart3";
@@ -1538,57 +1539,60 @@ namespace SpinWaveToolsFramework
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart2.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
-            chartArea16.AxisX.LineColor = System.Drawing.Color.DimGray;
-            chartArea16.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea16.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea16.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea16.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
-            chartArea16.AxisY2.LineColor = System.Drawing.Color.DimGray;
-            chartArea16.BorderColor = System.Drawing.Color.Gainsboro;
-            chartArea16.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea16.BorderWidth = 3;
-            chartArea16.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea16);
+            chartArea8.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea8.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea8.AxisX.Title = "Point index";
+            chartArea8.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea8.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea8.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea8.AxisY2.LineColor = System.Drawing.Color.DimGray;
+            chartArea8.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea8.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea8.BorderWidth = 3;
+            chartArea8.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea8);
             this.chart2.IsSoftShadows = false;
-            legend16.Name = "Legend1";
-            this.chart2.Legends.Add(legend16);
+            legend8.Name = "Legend1";
+            this.chart2.Legends.Add(legend8);
             this.chart2.Location = new System.Drawing.Point(393, 3);
             this.chart2.Name = "chart2";
-            series16.ChartArea = "ChartArea1";
-            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series16.Legend = "Legend1";
-            series16.Name = "Series1";
-            this.chart2.Series.Add(series16);
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            this.chart2.Series.Add(series8);
             this.chart2.Size = new System.Drawing.Size(384, 267);
             this.chart2.TabIndex = 4;
             this.chart2.Text = "chart2";
             this.chart2.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.Normal;
             // 
-            // cMakeCor
+            // analisysToolStripMenuItem
             // 
-            this.cMakeCor.AutoSize = true;
-            this.cMakeCor.Location = new System.Drawing.Point(8, 229);
-            this.cMakeCor.Name = "cMakeCor";
-            this.cMakeCor.Size = new System.Drawing.Size(158, 19);
-            this.cMakeCor.TabIndex = 11;
-            this.cMakeCor.Text = "Make correction versions";
-            this.cMakeCor.UseVisualStyleBackColor = true;
-            this.cMakeCor.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.analisysToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.makeComparsionToolStripMenuItem});
+            this.analisysToolStripMenuItem.Name = "analisysToolStripMenuItem";
+            this.analisysToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.analisysToolStripMenuItem.Text = "Analisys";
             // 
-            // helpToolStripMenuItem
+            // makeComparsionToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
+            this.makeComparsionToolStripMenuItem.Name = "makeComparsionToolStripMenuItem";
+            this.makeComparsionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.makeComparsionToolStripMenuItem.Text = "Make Comparsion...";
+            this.makeComparsionToolStripMenuItem.Click += new System.EventHandler(this.makeComparsionToolStripMenuItem_Click);
             // 
-            // aboutToolStripMenuItem
+            // pictureBox1
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = global::SpinWaveToolsFramework.Properties.Resources.ready;
+            this.pictureBox1.Location = new System.Drawing.Point(4, 208);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(251, 303);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
@@ -1627,8 +1631,6 @@ namespace SpinWaveToolsFramework
             this.settings.PerformLayout();
             this.process.ResumeLayout(false);
             this.process.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.menuMain.ResumeLayout(false);
@@ -1639,6 +1641,7 @@ namespace SpinWaveToolsFramework
             ((System.ComponentModel.ISupportInitialize)(this.chart4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1664,7 +1667,6 @@ namespace SpinWaveToolsFramework
         private System.Windows.Forms.Label powerSupplyCurrent;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label powerSupplyOutput;
-        private System.Windows.Forms.Label powerSupplyStatus;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -1723,8 +1725,6 @@ namespace SpinWaveToolsFramework
         private System.Windows.Forms.TextBox bFilePath;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.Label lTrigger;
         private System.Windows.Forms.Button updateGraph;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.CheckBox cDuplicate;
@@ -1759,6 +1759,9 @@ namespace SpinWaveToolsFramework
         private System.Windows.Forms.CheckBox cMakeCor;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem analisysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem makeComparsionToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

@@ -133,17 +133,46 @@ namespace MathWork
             File.WriteAllText(filename, output);
         }
         
+        static public void Merge(string[] files, int row, string savefile, int offset = 2)
+        {
+            double[][][] datas = new double[files.Length][][];
+
+            string output = "Frequency\t";
+            for (var i = 0; i < files.Length; i++)
+            {
+                datas[i] = ReadFile(files[i], offset);
+                output += files[i] + "\t";
+            }
+            output += "\n";
+            
+            for(var i = 0; i < datas[0].Length; i++)
+            {
+                string[] line = new string[files.Length + 1];
+                for(var j = 0; j < files.Length; j++)
+                {
+                    line[j + 1] = datas[j][i][row].ToString(CultureInfo.InvariantCulture);
+                }
+                line[0] = (datas[0][i][0]).ToString(CultureInfo.InvariantCulture);
+                output += string.Join("\t", line) + "\n";
+            }
+
+            output = "" +
+                     output;
+
+            File.WriteAllText(savefile, output);
+        }
+        
         static public double[][] ReadFile(string filename, int offset = 8)
         {
             string[] lines;
             var content = File.ReadAllText(filename);
             lines = content.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             int index = 0;
-            double[][] data = new double[lines.Length - 8][];
+            double[][] data = new double[lines.Length - offset][];
             for (var i = offset; i < lines.Length; i++)
             {
                 var line = lines[i];
-                var rawline = line.Split(' ');
+                var rawline = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 var rawdata = new double[rawline.Length];
                 for (var j = 0; j < rawdata.Length; j++)
                 {
